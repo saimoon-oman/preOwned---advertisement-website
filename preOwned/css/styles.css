@@ -1,0 +1,136 @@
+.bb {
+  border: none;
+}
+.navigation {
+  background-color: #eaf6f7;
+  position: sticky;
+  top: 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 100;
+}
+.button1 {
+  background-color: #ff9f29;
+  color: black;
+}
+.button1:hover {
+  background-color: #ff5f00;
+  font-weight: bold;
+}
+.nav-font {
+  font-size: 20px;
+  font-weight: bold;
+}
+#landingSection {
+  width: 100%;
+  height: 540px;
+  position: relative;
+  display: block;
+}
+#landingSection::before {
+  content: "";
+  background-image: url("../images/bg3.jpg");
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -3;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  z-index: -3;
+}
+#browseCategories {
+  padding-top: 80px;
+}
+#browseCategories img, #adsByLocations img, #howItWorks img {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+#browseCategories p, #adsByLocations p, #howItWorks p {
+  text-align: center;
+}
+#browseCategories a, #adsByLocations a, #howItWorks a {
+  text-decoration: none;
+  color: black;
+}
+#browseCategories a:hover, #adsByLocations a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 4px;
+  text-decoration-color: #ff9f29;
+  font-weight: bold;
+  size: 2%;
+}
+#browseCategories h3 {
+  text-align: center;
+  margin-bottom: 4px;
+  font-weight: normal;
+}
+#browseCategoriesTable, #howItWorksTable {
+  margin: 45px auto;
+}
+#browseCategorieshr1 {
+  border: 2px solid black;
+  border: 2px 0px 0px 0px;
+  width: 100px;
+  margin: auto;
+}
+#browseCategorieshr2 {
+  border: 2px solid black;
+  border: 2px 0px 0px 0px;
+  width: 70px;
+  margin: auto;
+  margin-top: 5px;
+}
+#adsByLocations h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: normal;
+  margin-top: 100px;
+}
+#adsByLocationsMessages {
+  margin-top: 30px;
+}
+#howItWorks h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: normal;
+  margin-top: 100px;
+}
+#howItWorks h6 {
+  text-align: center;
+  margin-top: 120px;
+  font-weight: normal;
+}
+#howItWorksMessages {
+  margin-top: 30px;
+}
+#landingSection h1 {
+  text-align: center;
+  color: white;
+}
+#landingSection h3 {
+  padding-top: 150px;
+  text-align: center;
+  color: white;
+}
+#searchForm {
+  width: 80%;
+  text-align: center;
+  margin: 10px auto;
+}
+#searchText {
+  height: 40px;
+  border-radius: 10px;
+}
+select {
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+}
+.footer {
+  text-align: center;
+  padding: 50px auto;
+}

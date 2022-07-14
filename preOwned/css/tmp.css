@@ -1,0 +1,107 @@
+body {
+  background-color: #f9f9f9;
+}
+.navigation {
+  background-color: #eaf6f7;
+  position: sticky;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  top: 0;
+  z-index: 100;
+}
+.button1 {
+  background-color: #ff9f29;
+  color: black;
+}
+.button1:hover {
+  background-color: #ff5f00;
+  font-weight: bold;
+}
+.nav-font {
+  font-size: 20px;
+  font-weight: bold;
+}
+#ban {
+  background-image: url('../images/bb.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 325px;
+}
+#adImages {
+  width: 60%;
+  position: relative;
+  left: -100px;
+  top: 30px;
+}
+#details {
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  width: 60%;
+  margin: 10px 20px 0px 30px;
+  color: black;
+  display: inline-block;
+  position: relative;
+  top: 120px;
+  left: 120px;
+  color: white;
+}
+#location {
+  display: inline-block;
+}
+#mobileNo {
+  display: inline-block;
+}
+#mobileNoButton {
+  background-color: #ff5f00;
+  color: white;
+  border-radius: 10%;
+}
+#mobileNoButton:hover {
+  background-color: #ff5f00;
+  color: black;
+  font-weight: bold;
+}
+#price {
+  font-size: 25px;
+}
+.priceElement {
+  display: inline;
+}
+.gallery img {
+  transition: 200ms;
+}
+.gallery img:hover {
+  filter: grayscale(100%);
+  transform: scale(1.1);
+}
+#adSideDetails {
+  padding-top: 40px;
+}
+#adImages {
+  background-color: white;
+}
+.adSideSpec {
+  border-bottom: 1px dotted black;
+  margin-bottom: 20px;
+}
+#adDes {
+  width: 60%;
+  background-color: white;
+  margin-top: 25px;
+  position: relative;
+  left: -100px;
+  top: 30px;
+}
+.footer {
+  text-align: center;
+  padding: 50px auto;
+  margin-top: 65px;
+}
+#mobileNoButton {
+  margin-left: 10px;
+}
+#safetyTips {
+  width: 20%;
+  position: sticky;
+  top: 70px;
+  z-index: 99;
+}

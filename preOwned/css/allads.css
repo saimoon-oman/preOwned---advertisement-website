@@ -1,0 +1,79 @@
+.navigation {
+  background-color: #eaf6f7;
+  position: sticky;
+  top: 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 100;
+}
+.button1, .view-pro {
+  background-color: #ff9f29;
+  color: black;
+}
+.button1:hover, .view-pro:hover {
+  background-color: #ff5f00;
+  font-weight: bold;
+}
+.nav-font {
+  font-size: 20px;
+  font-weight: bold;
+}
+.product {
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+.product img {
+  transition: 0.3s all;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  object-fit: cover;
+}
+
+.product:hover img {
+  opacity: 0.7;
+}
+
+.product .view-pro {
+  background: #ff9f29;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: 0.3s all;
+}
+
+.product:hover .view-pro {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#features > div > nav > ul > li.page-item.active > a {
+  background-color: black;
+}
+
+#features > div > nav > ul > li:nth-child(n):hover > a {
+  background-color: #ff9f29;
+  color: white;
+}
+
+.pagination a {
+  color: black;
+}
+
+#searchForm {
+  width: 80%;
+  text-align: center;
+  margin: 10px auto;
+}
+
+#searchText {
+  height: 40px;
+  border-radius: 10px;
+}
+select {
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+}
+.footer {
+  text-align: center;
+  padding: 50px auto;
+}
