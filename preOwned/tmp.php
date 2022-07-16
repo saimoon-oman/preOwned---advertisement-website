@@ -123,7 +123,7 @@
             <div class='container-fluid'>
               <div class='row'>
                 <div id='date' class='col'> Posted On : " . $rowqq['postDate'] . " &nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp Posted By : ".$pby."</div>
-                <div id='price' class='col-3'>
+                <div id='price' class='col-4'>
                   <span>" . $rowqq['price'] . "</span>(
                   <span>" . $rowqq['isnego'] . "</span>
                   )

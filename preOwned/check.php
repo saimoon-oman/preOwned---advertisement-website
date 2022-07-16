@@ -21,10 +21,10 @@ if (isset($_POST['login'])) {
     $fquery = "Select * from registration where username='$username' and password='$password'";
     $res = mysqli_query($con, $fquery);
     $row = mysqli_fetch_assoc($res);
-    include 'index.php';
     $_SESSION["userid"] = $row['userid'];
     $_SESSION["username"] = $username;
     $_SESSION["email"] = $row['email'];
+    include 'index.php';
   } else {
   ?>
     <script>
@@ -70,10 +70,11 @@ if (isset($_POST['register'])) {
       $fquery = "Select * from registration where username='$username' and email='$email' and password='$password'";
       $res = mysqli_query($con, $fquery);
       $row = mysqli_fetch_assoc($res);
-      include 'index.php';
+
       $_SESSION["userid"] = $row['userid'];
       $_SESSION["username"] = $username;
       $_SESSION["email"] = $email;
+      include 'index.php';
     } else {
     ?>
       <script>
@@ -102,26 +103,33 @@ if (isset($_POST['postbutton'])) {
 ?>
 <?php
 if (isset($_POST['ppbutton'])) {
+  $d1 = strtotime($_POST['endDate']);
+  $d2 = strtotime(date("Y-m-d"));
+
+  $sec = $d1 - $d2;
+  $day = $sec / 86400;
+  $pp = $_POST['price'] * 0.02 + $day;
   include 'dbconnect.php';
   $uid = mysqli_real_escape_string($con, $_SESSION["userid"]);
-  $category = mysqli_real_escape_string($con, $_POST['category']);
-  $location = mysqli_real_escape_string($con, $_POST['location']);
-  $title = mysqli_real_escape_string($con, $_POST['title']);
-  $condition = mysqli_real_escape_string($con, $_POST['condition']);
-  $authenticity = mysqli_real_escape_string($con, $_POST['authenticity']);
-  $features = mysqli_real_escape_string($con, $_POST['features']);
-  $description = mysqli_real_escape_string($con, $_POST['description']);
-  $price = mysqli_real_escape_string($con, $_POST['price']);
-  $isNego = mysqli_real_escape_string($con, $_POST['isNego']);
-  $endDate = mysqli_real_escape_string($con, $_POST['endDate']);
-  $image1 = $_FILES['image1'];
-  $image2 = $_FILES['image2'];
-  $image3 = $_FILES['image3'];
-  $image4 = $_FILES['image4'];
-  $image5 = $_FILES['image5'];
-  $phoneNo = mysqli_real_escape_string($con, $_POST['phoneNo']);
+  $category = mysqli_real_escape_string($con, $_POST["category"]);
+  $location = mysqli_real_escape_string($con, $_POST["location"]);
+  $title = mysqli_real_escape_string($con, $_POST["title"]);
+  $condition = mysqli_real_escape_string($con, $_POST["condition"]);
+  $authenticity = mysqli_real_escape_string($con, $_POST["authenticity"]);
+  $features = mysqli_real_escape_string($con, $_POST["features"]);
+  $description = mysqli_real_escape_string($con, $_POST["description"]);
+  $price = mysqli_real_escape_string($con, $_POST["price"]);
+  $isNego = mysqli_real_escape_string($con, $_POST["isNego"]);
+  $endDate = mysqli_real_escape_string($con, $_POST["endDate"]);
+  $image1 = $_FILES["image1"];
+  $image2 = $_FILES["image2"];
+  $image3 = $_FILES["image3"];
+  $image4 = $_FILES["image4"];
+  $image5 = $_FILES["image5"];
+  $phoneNo = mysqli_real_escape_string($con, $_POST["phoneNo"]);
   date_default_timezone_set('Asia/Dhaka');
   $postDate = mysqli_real_escape_string($con, date("Y-m-d h:ia"));
+
 
   $image1name = $image1['name'];
   $image1error = $image1['error'];
@@ -200,13 +208,121 @@ if (isset($_POST['ppbutton'])) {
 
   $adresult = mysqli_query($con, $sqlpushadquery);
 
+  $ssql = "Select * from ads where (user_id='$uid' and cat='$category' and loc='$location' and title='$title' and con='$condition' and aut='$authenticity' and feature='$features' and des='$description' and price='$price' and isnego='$isNego' and endDate='$endDate' and img1='$image1' and img2='$image2' and img3='$image3' and img4='$image4' and img5='$image5' and phone='$phoneNo' and postDate='$postDate')";
+
+  $ssqlres = mysqli_query($con, $ssql);
+  $ssqlresck = mysqli_num_rows($ssqlres);
+  if ($ssqlresck > 0) {
+    while ($rowssql = mysqli_fetch_assoc($ssqlres)) {
+      $adId = $rowssql['ad_id'];
+    }
+    setcookie("adId", $adId, time()+(86400*1));
+  }
+
   if ($adresult) {
 ?>
     <script>
       alert("Ad posted successfully!");
     </script>
 <?php
-    include 'index.php';
+    setcookie("userid", $_SESSION["userid"], time()+(86400*1));
+    setcookie("username", $_SESSION["username"], time()+(86400*1));
+    setcookie("email", $_SESSION["email"], time()+(86400*1));
+  }
+
+  /* PHP */
+  $post_data = array();
+  $post_data['store_id'] = "preow62d068642ae64";
+  $post_data['store_passwd'] = "preow62d068642ae64@ssl";
+  $post_data['total_amount'] = $pp;
+  $post_data['currency'] = "BDT";
+  $post_data['tran_id'] = "SSLCZ_TEST_" . uniqid();
+  $post_data['success_url'] = "http://localhost/preOwned/allads.php";
+  $post_data['fail_url'] = "http://localhost/preOwned/fail.php";
+  $post_data['cancel_url'] = "http://localhost/new_sslcz_gw/cancel.php";
+  # $post_data['multi_card_name'] = "mastercard,visacard,amexcard";  # DISABLE TO DISPLAY ALL AVAILABLE
+
+  # EMI INFO
+  $post_data['emi_option'] = "1";
+  $post_data['emi_max_inst_option'] = "9";
+  $post_data['emi_selected_inst'] = "9";
+
+  # CUSTOMER INFORMATION
+  $post_data['cus_name'] = $_SESSION["username"];
+  $post_data['cus_email'] = $_SESSION["email"];
+  $post_data['cus_add1'] = "Dhaka";
+  $post_data['cus_add2'] = "Dhaka";
+  $post_data['cus_city'] = "Dhaka";
+  $post_data['cus_state'] = "Dhaka";
+  $post_data['cus_postcode'] = "1000";
+  $post_data['cus_country'] = "Bangladesh";
+  $post_data['cus_phone'] = $_POST['phoneNo'];
+  $post_data['cus_fax'] = "01711111111";
+
+  # SHIPMENT INFORMATION
+  $post_data['ship_name'] = "testpreowgdbx";
+  $post_data['ship_add1 '] = "Dhaka";
+  $post_data['ship_add2'] = "Dhaka";
+  $post_data['ship_city'] = "Dhaka";
+  $post_data['ship_state'] = "Dhaka";
+  $post_data['ship_postcode'] = "1000";
+  $post_data['ship_country'] = "Bangladesh";
+
+  # OPTIONAL PARAMETERS
+  $post_data['value_a'] = "ref001";
+  $post_data['value_b '] = "ref002";
+  $post_data['value_c'] = "ref003";
+  $post_data['value_d'] = "ref004";
+
+  # CART PARAMETERS
+  $post_data['cart'] = json_encode(array(
+    array("product" => "DHK TO BRS AC A1", "amount" => "200.00"),
+    array("product" => "DHK TO BRS AC A2", "amount" => "200.00"),
+    array("product" => "DHK TO BRS AC A3", "amount" => "200.00"),
+    array("product" => "DHK TO BRS AC A4", "amount" => "200.00")
+  ));
+  $post_data['product_amount'] = "100";
+  $post_data['vat'] = "5";
+  $post_data['discount_amount'] = "5";
+  $post_data['convenience_fee'] = "3";
+
+  # REQUEST SEND TO SSLCOMMERZ
+  $direct_api_url = "https://sandbox.sslcommerz.com/gwprocess/v3/api.php";
+
+  $handle = curl_init();
+  curl_setopt($handle, CURLOPT_URL, $direct_api_url);
+  curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+  curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 30);
+  curl_setopt($handle, CURLOPT_POST, 1);
+  curl_setopt($handle, CURLOPT_POSTFIELDS, $post_data);
+  curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, FALSE); # KEEP IT FALSE IF YOU RUN FROM LOCAL PC
+
+
+  $content = curl_exec($handle);
+
+  $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+
+  if ($code == 200 && !(curl_errno($handle))) {
+    curl_close($handle);
+    $sslcommerzResponse = $content;
+  } else {
+    curl_close($handle);
+    echo "FAILED TO CONNECT WITH SSLCOMMERZ API";
+    exit;
+  }
+
+  # PARSE THE JSON RESPONSE
+  $sslcz = json_decode($sslcommerzResponse, true);
+
+  if (isset($sslcz['GatewayPageURL']) && $sslcz['GatewayPageURL'] != "") {
+    # THERE ARE MANY WAYS TO REDIRECT - Javascript, Meta Tag or Php Header Redirect or Other
+    # echo "<script>window.location.href = '". $sslcz['GatewayPageURL'] ."';</script>";
+    echo "<meta http-equiv='refresh' content='0;url=" . $sslcz['GatewayPageURL'] . "'>";
+    # header("Location: ". $sslcz['GatewayPageURL']);
+    exit;
+  } else {
+    echo "JSON Data parsing error!";
   }
 
   // echo $category . "<br>";
@@ -228,4 +344,5 @@ if (isset($_POST['ppbutton'])) {
   // echo $_SESSION["userid"];
 
 }
+
 ?>

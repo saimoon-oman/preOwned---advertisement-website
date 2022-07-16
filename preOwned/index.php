@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,7 +40,10 @@
           >
             <ul class="navbar-nav nav-font">
               <li class="nav-item">
-                <a class="nav-link" href="login.php" 
+                <a class="nav-link" href="<?php 
+                if (isset($_SESSION["username"])) echo "profile.php";
+                else echo "login.php";
+                ?>" 
                   ><img
                     src="images/login.png"
                     alt="Login image"
@@ -52,7 +57,7 @@
                   }?></a
                 >
               </li>
-
+<!-- 
               <li class="nav-item">
                 <a class="nav-link" href="register.php"
                   ><img
@@ -61,7 +66,7 @@
                     width="25"
                   />Register</a
                 >
-              </li>
+              </li> -->
 
               <form action="check.php" method="POST">
               <li class="nav-item">

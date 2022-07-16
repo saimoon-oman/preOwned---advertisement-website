@@ -1,6 +1,9 @@
 .bb {
   border: none;
 }
+body {
+  background-color: #f4fff7;
+}
 .navigation {
   background-color: #eaf6f7;
   position: sticky;

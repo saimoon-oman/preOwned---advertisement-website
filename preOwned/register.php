@@ -19,7 +19,7 @@
       <input type="password" name="password" placeholder="Password" required />
       <button type="submit" class="btn" name="register">Register</button>
     </form>
-    <p><small>Have an account? <a href="login.html">LogIn here</a>.</small></p>
+    <p><small>Have an account? <a href="login.php">LogIn here</a>.</small></p>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

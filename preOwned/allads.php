@@ -1,5 +1,109 @@
 <?php
 session_start();
+if (isset($_COOKIE["userid"])) {
+
+  $_SESSION["userid"] = $_COOKIE["userid"];
+  $_SESSION["username"] = $_COOKIE["username"];
+  $_SESSION["email"] = $_COOKIE["email"];
+  setcookie("userid", "", time() - 3600);
+  setcookie("username", "", time() - 3600);
+  setcookie("email", "", time() - 3600);
+
+  $val_id = urlencode($_POST['val_id']);
+  $store_id = urlencode("preow62d068642ae64");
+  $store_passwd = urlencode("preow62d068642ae64@ssl");
+  $requested_url = ("https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php?val_id=" . $val_id . "&store_id=" . $store_id . "&store_passwd=" . $store_passwd . "&v=1&format=json");
+
+  $handle = curl_init();
+  curl_setopt($handle, CURLOPT_URL, $requested_url);
+  curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, false); # IF YOU RUN FROM LOCAL PC
+  curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false); # IF YOU RUN FROM LOCAL PC
+
+  $result = curl_exec($handle);
+
+  $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+
+  if ($code == 200 && !(curl_errno($handle))) {
+
+    # TO CONVERT AS ARRAY
+    # $result = json_decode($result, true);
+    # $status = $result['status'];
+
+    # TO CONVERT AS OBJECT
+    $result = json_decode($result);
+
+    # TRANSACTION INFO
+    $status = $result->status;
+    $tran_date = $result->tran_date;
+    $tran_id = $result->tran_id;
+    $val_id = $result->val_id;
+    $amount = $result->amount;
+    $store_amount = $result->store_amount;
+    $bank_tran_id = $result->bank_tran_id;
+    $card_type = $result->card_type;
+
+    # EMI INFO
+    $emi_instalment = $result->emi_instalment;
+    $emi_amount = $result->emi_amount;
+    $emi_description = $result->emi_description;
+    $emi_issuer = $result->emi_issuer;
+
+    # ISSUER INFO
+    $card_no = $result->card_no;
+    $card_issuer = $result->card_issuer;
+    $card_brand = $result->card_brand;
+    $card_issuer_country = $result->card_issuer_country;
+    $card_issuer_country_code = $result->card_issuer_country_code;
+
+    # API AUTHENTICATION
+    $APIConnect = $result->APIConnect;
+    $validated_on = $result->validated_on;
+    $gw_version = $result->gw_version;
+
+    include 'dbconnect.php';
+    $adId = $_COOKIE['adId'];
+    setcookie("adId", "", time() - 3600);
+    $uId = $_SESSION['userid'];
+    $sqql = "insert into payment(ad_id, user_id, tran_date, tran_id, amount, bank_tran_id, card_type) values ('$adId', '$uId', '$tran_date', '$tran_id', '$amount', '$bank_tran_id', '$card_type')";
+
+    $ressqql = mysqli_query($con, $sqql);
+
+    $to_email = $_SESSION["email"];
+    $subject = "Payment to preOwned successful";
+    $body = "Hello " . $_SESSION['username'] . ", 
+       
+    
+    Your payment is successful 
+    
+    Transaction Id: " . $tran_id . " 
+    
+    Amount: " . $amount . " 
+    
+    Bank Transaction Id: " . $bank_tran_id . " 
+    
+    Card Type: " . $card_type . " 
+    
+    Transaction Date: " . $tran_date . " 
+    
+    
+    Thank you for being with preOwned😊";
+    $headers = "From: preownedshop123@gmail.com";
+
+    if (mail($to_email, $subject, $body, $headers)) {
+?>
+      <script>
+        alert("Payment confirmation mail has been sent to your email.");
+      </script>
+<?php
+    } else {
+      echo "Email sending failed...";
+    }
+  } else {
+
+    echo "Failed to connect with SSLCOMMERZ";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,71 +118,43 @@ session_start();
 </head>
 
 <body>
-<div class="navigation">
-      <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.php"
-            ><img src="images/logo2.png" alt="logo" width="150"
-          /></a>
-          <a class="nav-link nav-font navbar-nav" href="allads.php">All adds</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div
-            class="collapse navbar-collapse justify-content-end"
-            id="navbarSupportedContent"
-          >
-            <ul class="navbar-nav nav-font">
-              <li class="nav-item">
-                <a class="nav-link" href="login.php" 
-                  ><img
-                    src="images/login.png"
-                    alt="Login image"
-                    width="30"
-                  /><?php
-                  if (isset($_SESSION["username"])) {
-                    echo $_SESSION["username"];
-                  }
-                  else {
-                    echo "Login";
-                  }?></a
-                >
-              </li>
+  <div class="navigation">
+    <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.php"><img src="images/logo2.png" alt="logo" width="150" /></a>
+        <a class="nav-link nav-font navbar-nav" href="allads.php">All adds</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav nav-font">
+            <li class="nav-item">
+              <a class="nav-link" href="login.php"><img src="images/login.png" alt="Login image" width="30" /><?php
+                                                                                                              if (isset($_SESSION["username"])) {
+                                                                                                                echo $_SESSION["username"];
+                                                                                                              } else {
+                                                                                                                echo "Login";
+                                                                                                              } ?></a>
+            </li>
 
-              <li class="nav-item">
-                <a class="nav-link" href="profile.php"
-                  ><img
-                    src="images/register.png"
-                    alt="Register image"
-                    width="25"
-                  />Profile</a
-                >
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.php"><img src="images/register.png" alt="Register image" width="25" />Profile</a>
+            </li>
 
-              <form action="check.php" method="POST">
+            <form action="check.php" method="POST">
               <li class="nav-item">
-                <a class="nav-link" href="<?php 
-                if(isset($_SESSION["username"])) echo "postAd.php";
-                else echo "login.php" ?>"
-                  ><button type="submit" name="postbutton" class="btn button1">
+                <a class="nav-link" href="<?php
+                                          if (isset($_SESSION["username"])) echo "postAd.php";
+                                          else echo "login.php" ?>"><button type="submit" name="postbutton" class="btn button1">
                     POST YOUR AD
-                  </button></a
-                >
+                  </button></a>
               </li>
-              </form>
-            </ul>
-          </div>
+            </form>
+          </ul>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
+  </div>
 
   <div class="container-fluid">
     <div class="container-fluid" style="margin: 55px 0 40px">
@@ -163,8 +239,7 @@ session_start();
               ";
             }
           }
-        } 
-         else if (isset($_POST['c2'])) {
+        } else if (isset($_POST['c2'])) {
           include 'dbconnect.php';
 
           $squery = "Select * from ads where cat='electronics' order by postDate desc";
@@ -713,7 +788,7 @@ session_start();
             $a = $_POST['cT'];
             $b = $_POST['lC'];
 
-            $squery = "Select * from ads where cat='$a' and loc='$b' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%". $stext . "%' OR title LIKE '%". $stext . "%' OR con LIKE '%". $stext . "%' OR aut LIKE '%". $stext . "%' OR feature LIKE '%". $stext . "%' OR des LIKE '%". $stext . "%' OR price LIKE '%". $stext . "%' OR isnego LIKE '%". $stext . "%' OR endDate LIKE '%". $stext . "%' OR phone LIKE '%". $stext . "%' OR postDate LIKE '%". $stext . "%')  order by postDate desc";
+            $squery = "Select * from ads where cat='$a' and loc='$b' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%" . $stext . "%' OR title LIKE '%" . $stext . "%' OR con LIKE '%" . $stext . "%' OR aut LIKE '%" . $stext . "%' OR feature LIKE '%" . $stext . "%' OR des LIKE '%" . $stext . "%' OR price LIKE '%" . $stext . "%' OR isnego LIKE '%" . $stext . "%' OR endDate LIKE '%" . $stext . "%' OR phone LIKE '%" . $stext . "%' OR postDate LIKE '%" . $stext . "%')  order by postDate desc";
 
             $res = mysqli_query($con, $squery);
             $rescheck = mysqli_num_rows($res);
@@ -746,13 +821,11 @@ session_start();
               ";
               }
             }
-          }
-
-          else if (strlen($stext) > 0 && isset($_POST['cT'])) {
+          } else if (strlen($stext) > 0 && isset($_POST['cT'])) {
             include 'dbconnect.php';
             $a = $_POST['cT'];
 
-            $squery = "Select * from ads where cat='$a' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%". $stext . "%' OR title LIKE '%". $stext . "%' OR con LIKE '%". $stext . "%' OR aut LIKE '%". $stext . "%' OR feature LIKE '%". $stext . "%' OR des LIKE '%". $stext . "%' OR price LIKE '%". $stext . "%' OR isnego LIKE '%". $stext . "%' OR endDate LIKE '%". $stext . "%' OR phone LIKE '%". $stext . "%' OR postDate LIKE '%". $stext . "%')  order by postDate desc";
+            $squery = "Select * from ads where cat='$a' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%" . $stext . "%' OR title LIKE '%" . $stext . "%' OR con LIKE '%" . $stext . "%' OR aut LIKE '%" . $stext . "%' OR feature LIKE '%" . $stext . "%' OR des LIKE '%" . $stext . "%' OR price LIKE '%" . $stext . "%' OR isnego LIKE '%" . $stext . "%' OR endDate LIKE '%" . $stext . "%' OR phone LIKE '%" . $stext . "%' OR postDate LIKE '%" . $stext . "%')  order by postDate desc";
 
             $res = mysqli_query($con, $squery);
             $rescheck = mysqli_num_rows($res);
@@ -785,12 +858,11 @@ session_start();
               ";
               }
             }
-          }
-          else if (strlen($stext) > 0 && isset($_POST['lC'])) {
+          } else if (strlen($stext) > 0 && isset($_POST['lC'])) {
             include 'dbconnect.php';
             $b = $_POST['lC'];
 
-            $squery = "Select * from ads where loc='$b' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%". $stext . "%' OR title LIKE '%". $stext . "%' OR con LIKE '%". $stext . "%' OR aut LIKE '%". $stext . "%' OR feature LIKE '%". $stext . "%' OR des LIKE '%". $stext . "%' OR price LIKE '%". $stext . "%' OR isnego LIKE '%". $stext . "%' OR endDate LIKE '%". $stext . "%' OR phone LIKE '%". $stext . "%' OR postDate LIKE '%". $stext . "%')  order by postDate desc";
+            $squery = "Select * from ads where loc='$b' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%" . $stext . "%' OR title LIKE '%" . $stext . "%' OR con LIKE '%" . $stext . "%' OR aut LIKE '%" . $stext . "%' OR feature LIKE '%" . $stext . "%' OR des LIKE '%" . $stext . "%' OR price LIKE '%" . $stext . "%' OR isnego LIKE '%" . $stext . "%' OR endDate LIKE '%" . $stext . "%' OR phone LIKE '%" . $stext . "%' OR postDate LIKE '%" . $stext . "%')  order by postDate desc";
 
             $res = mysqli_query($con, $squery);
             $rescheck = mysqli_num_rows($res);
@@ -823,11 +895,10 @@ session_start();
               ";
               }
             }
-          }
-          else if (strlen($stext) > 0) {
+          } else if (strlen($stext) > 0) {
             include 'dbconnect.php';
 
-            $squery = "Select * from ads where (cat LIKE '%" . $stext . "%' OR loc LIKE '%". $stext . "%' OR title LIKE '%". $stext . "%' OR con LIKE '%". $stext . "%' OR aut LIKE '%". $stext . "%' OR feature LIKE '%". $stext . "%' OR des LIKE '%". $stext . "%' OR price LIKE '%". $stext . "%' OR isnego LIKE '%". $stext . "%' OR endDate LIKE '%". $stext . "%' OR phone LIKE '%". $stext . "%' OR postDate LIKE '%". $stext . "%')  order by postDate desc";
+            $squery = "Select * from ads where (cat LIKE '%" . $stext . "%' OR loc LIKE '%" . $stext . "%' OR title LIKE '%" . $stext . "%' OR con LIKE '%" . $stext . "%' OR aut LIKE '%" . $stext . "%' OR feature LIKE '%" . $stext . "%' OR des LIKE '%" . $stext . "%' OR price LIKE '%" . $stext . "%' OR isnego LIKE '%" . $stext . "%' OR endDate LIKE '%" . $stext . "%' OR phone LIKE '%" . $stext . "%' OR postDate LIKE '%" . $stext . "%')  order by postDate desc";
 
             $res = mysqli_query($con, $squery);
             $rescheck = mysqli_num_rows($res);
@@ -860,10 +931,7 @@ session_start();
               ";
               }
             }
-          }
-          
-
-          else if (isset($_POST['cT']) && isset($_POST['lC'])) {
+          } else if (isset($_POST['cT']) && isset($_POST['lC'])) {
             include 'dbconnect.php';
 
             $a = $_POST['cT'];
@@ -984,7 +1052,7 @@ session_start();
             $a = $_POST['category'];
             $b = $_POST['location'];
 
-            $squery = "Select * from ads where cat='$a' and loc='$b' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%". $stext . "%' OR title LIKE '%". $stext . "%' OR con LIKE '%". $stext . "%' OR aut LIKE '%". $stext . "%' OR feature LIKE '%". $stext . "%' OR des LIKE '%". $stext . "%' OR price LIKE '%". $stext . "%' OR isnego LIKE '%". $stext . "%' OR endDate LIKE '%". $stext . "%' OR phone LIKE '%". $stext . "%' OR postDate LIKE '%". $stext . "%')  order by postDate desc";
+            $squery = "Select * from ads where cat='$a' and loc='$b' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%" . $stext . "%' OR title LIKE '%" . $stext . "%' OR con LIKE '%" . $stext . "%' OR aut LIKE '%" . $stext . "%' OR feature LIKE '%" . $stext . "%' OR des LIKE '%" . $stext . "%' OR price LIKE '%" . $stext . "%' OR isnego LIKE '%" . $stext . "%' OR endDate LIKE '%" . $stext . "%' OR phone LIKE '%" . $stext . "%' OR postDate LIKE '%" . $stext . "%')  order by postDate desc";
 
             $res = mysqli_query($con, $squery);
             $rescheck = mysqli_num_rows($res);
@@ -1017,13 +1085,11 @@ session_start();
               ";
               }
             }
-          }
-
-          else if (strlen($stext) > 0 && isset($_POST['category'])) {
+          } else if (strlen($stext) > 0 && isset($_POST['category'])) {
             include 'dbconnect.php';
             $a = $_POST['category'];
 
-            $squery = "Select * from ads where cat='$a' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%". $stext . "%' OR title LIKE '%". $stext . "%' OR con LIKE '%". $stext . "%' OR aut LIKE '%". $stext . "%' OR feature LIKE '%". $stext . "%' OR des LIKE '%". $stext . "%' OR price LIKE '%". $stext . "%' OR isnego LIKE '%". $stext . "%' OR endDate LIKE '%". $stext . "%' OR phone LIKE '%". $stext . "%' OR postDate LIKE '%". $stext . "%')  order by postDate desc";
+            $squery = "Select * from ads where cat='$a' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%" . $stext . "%' OR title LIKE '%" . $stext . "%' OR con LIKE '%" . $stext . "%' OR aut LIKE '%" . $stext . "%' OR feature LIKE '%" . $stext . "%' OR des LIKE '%" . $stext . "%' OR price LIKE '%" . $stext . "%' OR isnego LIKE '%" . $stext . "%' OR endDate LIKE '%" . $stext . "%' OR phone LIKE '%" . $stext . "%' OR postDate LIKE '%" . $stext . "%')  order by postDate desc";
 
             $res = mysqli_query($con, $squery);
             $rescheck = mysqli_num_rows($res);
@@ -1056,12 +1122,11 @@ session_start();
               ";
               }
             }
-          }
-          else if (strlen($stext) > 0 && isset($_POST['location'])) {
+          } else if (strlen($stext) > 0 && isset($_POST['location'])) {
             include 'dbconnect.php';
             $b = $_POST['location'];
 
-            $squery = "Select * from ads where loc='$b' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%". $stext . "%' OR title LIKE '%". $stext . "%' OR con LIKE '%". $stext . "%' OR aut LIKE '%". $stext . "%' OR feature LIKE '%". $stext . "%' OR des LIKE '%". $stext . "%' OR price LIKE '%". $stext . "%' OR isnego LIKE '%". $stext . "%' OR endDate LIKE '%". $stext . "%' OR phone LIKE '%". $stext . "%' OR postDate LIKE '%". $stext . "%')  order by postDate desc";
+            $squery = "Select * from ads where loc='$b' and (cat LIKE '%" . $stext . "%' OR loc LIKE '%" . $stext . "%' OR title LIKE '%" . $stext . "%' OR con LIKE '%" . $stext . "%' OR aut LIKE '%" . $stext . "%' OR feature LIKE '%" . $stext . "%' OR des LIKE '%" . $stext . "%' OR price LIKE '%" . $stext . "%' OR isnego LIKE '%" . $stext . "%' OR endDate LIKE '%" . $stext . "%' OR phone LIKE '%" . $stext . "%' OR postDate LIKE '%" . $stext . "%')  order by postDate desc";
 
             $res = mysqli_query($con, $squery);
             $rescheck = mysqli_num_rows($res);
@@ -1094,11 +1159,10 @@ session_start();
               ";
               }
             }
-          }
-          else if (strlen($stext) > 0) {
+          } else if (strlen($stext) > 0) {
             include 'dbconnect.php';
 
-            $squery = "Select * from ads where (cat LIKE '%" . $stext . "%' OR loc LIKE '%". $stext . "%' OR title LIKE '%". $stext . "%' OR con LIKE '%". $stext . "%' OR aut LIKE '%". $stext . "%' OR feature LIKE '%". $stext . "%' OR des LIKE '%". $stext . "%' OR price LIKE '%". $stext . "%' OR isnego LIKE '%". $stext . "%' OR endDate LIKE '%". $stext . "%' OR phone LIKE '%". $stext . "%' OR postDate LIKE '%". $stext . "%')  order by postDate desc";
+            $squery = "Select * from ads where (cat LIKE '%" . $stext . "%' OR loc LIKE '%" . $stext . "%' OR title LIKE '%" . $stext . "%' OR con LIKE '%" . $stext . "%' OR aut LIKE '%" . $stext . "%' OR feature LIKE '%" . $stext . "%' OR des LIKE '%" . $stext . "%' OR price LIKE '%" . $stext . "%' OR isnego LIKE '%" . $stext . "%' OR endDate LIKE '%" . $stext . "%' OR phone LIKE '%" . $stext . "%' OR postDate LIKE '%" . $stext . "%')  order by postDate desc";
 
             $res = mysqli_query($con, $squery);
             $rescheck = mysqli_num_rows($res);
@@ -1131,8 +1195,7 @@ session_start();
               ";
               }
             }
-          }
-          else if (isset($_POST['category']) && isset($_POST['location'])) {
+          } else if (isset($_POST['category']) && isset($_POST['location'])) {
             include 'dbconnect.php';
 
             $a = $_POST['category'];

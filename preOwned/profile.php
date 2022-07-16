@@ -1,6 +1,36 @@
 <?php
 session_start();
 ?>
+<?php
+
+if (isset($_POST['logout'])) {
+  // session_destroy();
+  unset($_SESSION["userid"]);
+  unset($_SESSION["username"]);
+  unset($_SESSION["email"]);
+?>
+  <script>
+    alert("Log out successfully!");
+  </script>
+<?php
+  include 'index.php';
+}
+
+?>
+<?php
+include 'dbconnect.php';
+$qq = "Select * from ads";
+$resqq = mysqli_query($con, $qq);
+$resqqcheck = mysqli_num_rows($resqq);
+if ($resqqcheck > 0) {
+  while ($rowqq = mysqli_fetch_assoc($resqq)) {
+    if (isset($_POST[($rowqq['ad_id']) . "d"])) {
+      $squeryfromregister = "delete from ads where ad_id=" . $rowqq['ad_id'];
+      $resregis = mysqli_query($con, $squeryfromregister);
+    }
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,13 +90,17 @@ session_start();
         <hr>
         <a href="profile.php" style="font-weight: bold;">My Account</a>
         <hr>
+        <a href="receipt.php">My Receipts</a>
+        <hr>
         <a href="settings.php">Settings</a>
         <hr>
         <br>
         <br>
         <br>
         <br>
-        <button type="submit" name="logout" class="btn button1" style="display:block; width: auto; margin: auto;">Log Out</button>
+        <form action="profile.php" method="POST">
+          <button type="submit" name="logout" class="btn button1" style="display:block; width: auto; margin: auto;">Log Out</button>
+        </form>
       </div>
 
       <div class="col" id="column2">
@@ -111,8 +145,11 @@ session_start();
                 <h6 class='p-category'>" . $row['cat'] . "</h6>
                 <h6 class='p-location'>" . $row['loc'] . "</h6>
                 <h6 class='p-date'>Posted on: " . $row['postDate'] . "</h6>
-                <h6 class='p-date'>Posted by: " . $pby . "</h6>
+                <h6 class='p-date'>Posted till: " . $row['endDate'] . "</h6>
                 <button name='" . $row['ad_id'] . "' type='submit' class='btn view-pro'>VIEW</button>
+                </form>
+                <form action='profile.php' method='POST'>
+                <button name='" . $row['ad_id'] . "d' type='submit' class='btn view-pro'>DELETE</button> 
                 </form>
                 </div>
               ";

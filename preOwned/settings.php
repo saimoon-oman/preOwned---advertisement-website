@@ -57,8 +57,29 @@ if (isset($_POST['cpass'])) {
     }
   } 
 }
+if (isset($_POST['daccount'])) {
+  include 'dbconnect.php';
+  $sqlq = "delete from registration where userid=".$_SESSION["userid"];
+  $res = mysqli_query($con, $sqlq);
+  session_destroy();
+  ?>
+  <script>
+    alert("Account Deleted successfully!");
+  </script>
+  <?php
+  include 'index.php';
+}
 if (isset($_POST['logout'])) {
-  
+  // session_destroy();
+  unset($_SESSION["userid"]);
+  unset($_SESSION["username"]);
+  unset($_SESSION["email"]);
+  ?>
+  <script>
+    alert("Log out successfully!");
+  </script>
+  <?php
+  include 'index.php';
 }
 ?>
 <!DOCTYPE html>
