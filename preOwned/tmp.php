@@ -17,44 +17,32 @@
 
 <body>
 <div class="navigation">
-      <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.php"
-            ><img src="images/logo2.png" alt="logo" width="150"
-          /></a>
-          <a class="nav-link nav-font navbar-nav" href="allads.php">All adds</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div
-            class="collapse navbar-collapse justify-content-end"
-            id="navbarSupportedContent"
-          >
-            <ul class="navbar-nav nav-font">
-              <li class="nav-item">
-                <a class="nav-link" href="login.php" 
-                  ><img
-                    src="images/login.png"
-                    alt="Login image"
-                    width="30"
-                  /><?php
-                  if (isset($_SESSION["username"])) {
-                    echo $_SESSION["username"];
-                  }
-                  else {
-                    echo "Login";
-                  }?></a
-                >
-              </li>
-
+    <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
+      <div class="container-fluid">
+        <form action="indeximg.php" method="POST">
+          <button type="submit" class="navbar-brand" style="border: none;" name="home"><img src="images/logo2.png" alt="logo" width="150" /></button>
+        </form>
+        <a class="nav-link nav-font navbar-nav" href="<?php
+                                                      if (isset($_SESSION["userid"])) echo "allads.php";
+                                                      else echo "login.php";
+                                                      ?>">All adds</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav nav-font">
+            <li class="nav-item">
+              <a class="nav-link" href="<?php
+                                        if (isset($_SESSION["username"])) echo "profile.php";
+                                        else echo "login.php";
+                                        ?>"><img src="images/login.png" alt="Login image" width="30" /><?php
+                                                                                if (isset($_SESSION["username"])) {
+                                                                                  echo $_SESSION["username"];
+                                                                                } else {
+                                                                                  echo "Login";
+                                                                                } ?></a>
+            </li>
+            <!-- 
               <li class="nav-item">
                 <a class="nav-link" href="register.php"
                   ><img
@@ -63,24 +51,20 @@
                     width="25"
                   />Register</a
                 >
-              </li>
+              </li> -->
 
-              <form action="check.php" method="POST">
+            <form action="check.php" method="POST">
               <li class="nav-item">
-                <a class="nav-link" href="<?php 
-                if(isset($_SESSION["username"])) echo "postAd.php";
-                else echo "login.php" ?>"
-                  ><button type="submit" name="postbutton" class="btn button1">
+                <span class="nav-link"><button type="submit" name="postbutton" class="btn button1">
                     POST YOUR AD
-                  </button></a
-                >
+                  </button></span>
               </li>
-              </form>
-            </ul>
-          </div>
+            </form>
+          </ul>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
+  </div>
 
   <?php
 

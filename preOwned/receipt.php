@@ -1,22 +1,6 @@
 <?php
 session_start();
 ?>
-<?php
-
-if (isset($_POST['logout'])) {
-  // session_destroy();
-  unset($_SESSION["userid"]);
-  unset($_SESSION["username"]);
-  unset($_SESSION["email"]);
-?>
-  <script>
-    alert("Log out successfully!");
-  </script>
-<?php
-  include 'index.php';
-}
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,48 +18,33 @@ if (isset($_POST['logout'])) {
     <link rel="stylesheet" href="css/receipt.css" />
   </head>
   <body>
-    <div class="navigation">
-      <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.php"
-            ><img src="images/logo2.png" alt="logo" width="150"
-          /></a>
-          <a class="nav-link nav-font navbar-nav" href="allads.php">All adds</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div
-            class="collapse navbar-collapse justify-content-end"
-            id="navbarSupportedContent"
-          >
-            <ul class="navbar-nav nav-font">
-              <li class="nav-item">
-                <a class="nav-link" href="<?php 
-                if (isset($_SESSION["username"])) echo "profile.php";
-                else echo "login.php";
-                ?>" 
-                  ><img
-                    src="images/login.png"
-                    alt="Login image"
-                    width="30"
-                  /><?php
-                  if (isset($_SESSION["username"])) {
-                    echo $_SESSION["username"];
-                  }
-                  else {
-                    echo "Login";
-                  }?></a
-                >
-              </li>
-<!-- 
+  <div class="navigation">
+    <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
+      <div class="container-fluid">
+        <form action="indeximg.php" method="POST">
+          <button type="submit" class="navbar-brand" style="border: none;" name="home"><img src="images/logo2.png" alt="logo" width="150" /></button>
+        </form>
+        <a class="nav-link nav-font navbar-nav" href="<?php
+                                                      if (isset($_SESSION["userid"])) echo "allads.php";
+                                                      else echo "login.php";
+                                                      ?>">All adds</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav nav-font">
+            <li class="nav-item">
+              <a class="nav-link" href="<?php
+                                        if (isset($_SESSION["username"])) echo "profile.php";
+                                        else echo "login.php";
+                                        ?>"><img src="images/login.png" alt="Login image" width="30" /><?php
+                                                                                if (isset($_SESSION["username"])) {
+                                                                                  echo $_SESSION["username"];
+                                                                                } else {
+                                                                                  echo "Login";
+                                                                                } ?></a>
+            </li>
+            <!-- 
               <li class="nav-item">
                 <a class="nav-link" href="register.php"
                   ><img
@@ -86,22 +55,18 @@ if (isset($_POST['logout'])) {
                 >
               </li> -->
 
-              <form action="check.php" method="POST">
+            <form action="check.php" method="POST">
               <li class="nav-item">
-                <a class="nav-link" href="<?php 
-                if(isset($_SESSION["username"])) echo "postAd.php";
-                else echo "login.php" ?>"
-                  ><button type="submit" name="postbutton" class="btn button1">
+                <span class="nav-link"><button type="submit" name="postbutton" class="btn button1">
                     POST YOUR AD
-                  </button></a
-                >
+                  </button></span>
               </li>
-              </form>
-            </ul>
-          </div>
+            </form>
+          </ul>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
+  </div>
 
     <div class="container" id="container_id">
     <div class="row">
@@ -118,7 +83,7 @@ if (isset($_POST['logout'])) {
         <br>
         <br>
         <br>
-        <form action="profile.php" method="POST">
+        <form action="lg.php" method="POST">
           <button type="submit" name="logout" class="btn button1" style="display:block; width: auto; margin: auto;">Log Out</button>
         </form>
       </div>
@@ -154,7 +119,7 @@ if (isset($_POST['logout'])) {
               }
               echo "
               <div class='product text-center col-lg-3 col-md-4 col-12'>
-              <form action='receipt.php' method='POST'>  
+              <form action='t.php' method='POST'>  
               <img
                   class='img-fluid mb3'
                   src='" . $row['img1'] . "'

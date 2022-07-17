@@ -1,87 +1,6 @@
 <?php
 session_start();
 ?>
-<?php
-if (isset($_POST['udetails'])) {
-  include 'dbconnect.php';
-  $sqlq = "update registration set username='".$_POST['uname']."' where userid='".$_SESSION['userid']."'";
-  $res = mysqli_query($con, $sqlq);
-  $_SESSION['username'] = $_POST['uname'];
-  include 'index.php';
-}
-if (isset($_POST['cpass'])) {
-  include 'dbconnect.php';
-  $sqlq = "select * from registration";
-  $res = mysqli_query($con, $sqlq);
-  $rescheck = mysqli_num_rows($res);
-  if ($rescheck > 0) {
-    $flag = true;
-    while ($row = mysqli_fetch_assoc($res)) {
-      if ($_POST['cur_pass'] == $row['password'] && $_SESSION['email'] == $row['email']) {
-        $flag = false;
-        if ($_POST['new_pass'] == $_POST['confirm_pass']) {
-          ?>
-          <script>
-            isExecuted = confirm("Are you sure to change password?");
-            if (isExecuted) {
-              <?php 
-                include 'dbconnect.php';
-                $sql = "update registration set password='".$_POST['new_pass']."' where userid='".$_SESSION['userid']."'";
-                $resq = mysqli_query($con, $sql);
-                ?>
-                <script>
-                  alert("Password changed successfully");
-                </script>
-                <?php
-                include 'index.php';
-              ?>
-            }
-          </script>
-          <?php
-        }
-        else {
-          ?>
-          <script>
-            alert("New password and Confirm Password not match!!!");
-          </script>
-          <?php
-        }
-      }
-    }
-    if ($flag) {
-      ?>
-      <script>
-        alert("Password not matched!!!");
-      </script>
-      <?php
-    }
-  } 
-}
-if (isset($_POST['daccount'])) {
-  include 'dbconnect.php';
-  $sqlq = "delete from registration where userid=".$_SESSION["userid"];
-  $res = mysqli_query($con, $sqlq);
-  session_destroy();
-  ?>
-  <script>
-    alert("Account Deleted successfully!");
-  </script>
-  <?php
-  include 'index.php';
-}
-if (isset($_POST['logout'])) {
-  // session_destroy();
-  unset($_SESSION["userid"]);
-  unset($_SESSION["username"]);
-  unset($_SESSION["email"]);
-  ?>
-  <script>
-    alert("Log out successfully!");
-  </script>
-  <?php
-  include 'index.php';
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,36 +14,48 @@ if (isset($_POST['logout'])) {
 </head>
 
 <body>
-  <div class="navigation">
+<div class="navigation">
     <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.php"><img src="images/logo2.png" alt="logo" width="150" /></a>
-        <a class="nav-link nav-font navbar-nav" href="allads.php">All adds</a>
+        <form action="indeximg.php" method="POST">
+          <button type="submit" class="navbar-brand" style="border: none;" name="home"><img src="images/logo2.png" alt="logo" width="150" /></button>
+        </form>
+        <a class="nav-link nav-font navbar-nav" href="<?php
+                                                      if (isset($_SESSION["userid"])) echo "allads.php";
+                                                      else echo "login.php";
+                                                      ?>">All adds</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="navbar-nav nav-font">
             <li class="nav-item">
-              <a class="nav-link" href="login.php"><img src="images/login.png" alt="Login image" width="30" /><?php
-                                                                                                              if (isset($_SESSION["username"])) {
-                                                                                                                echo $_SESSION["username"];
-                                                                                                              } else {
-                                                                                                                echo "Login";
-                                                                                                              } ?></a>
+              <a class="nav-link" href="<?php
+                                        if (isset($_SESSION["username"])) echo "profile.php";
+                                        else echo "login.php";
+                                        ?>"><img src="images/login.png" alt="Login image" width="30" /><?php
+                                                                                if (isset($_SESSION["username"])) {
+                                                                                  echo $_SESSION["username"];
+                                                                                } else {
+                                                                                  echo "Login";
+                                                                                } ?></a>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="register.php"><img src="images/register.png" alt="Register image" width="25" />Register</a>
-            </li>
+            <!-- 
+              <li class="nav-item">
+                <a class="nav-link" href="register.php"
+                  ><img
+                    src="images/register.png"
+                    alt="Register image"
+                    width="25"
+                  />Register</a
+                >
+              </li> -->
 
             <form action="check.php" method="POST">
               <li class="nav-item">
-                <a class="nav-link" href="<?php
-                                          if (isset($_SESSION["username"])) echo "postAd.php";
-                                          else echo "login.php" ?>"><button type="submit" name="postbutton" class="btn button1">
+                <span class="nav-link"><button type="submit" name="postbutton" class="btn button1">
                     POST YOUR AD
-                  </button></a>
+                  </button></span>
               </li>
             </form>
           </ul>
@@ -141,13 +72,15 @@ if (isset($_POST['logout'])) {
         <hr>
         <a href="profile.php">My Account</a>
         <hr>
+        <a href="receipt.php">My Receipts</a>
+        <hr>
         <a href="settings.php" style="font-weight: bold;">Settings</a>
         <hr>
         <br>
         <br>
         <br>
         <br>
-        <form action="settings.php" method="POST">
+        <form action="lg.php" method="POST">
           <button type="submit" name="logout" class="btn button1" style="display:block; width: auto; margin: auto;">Log Out</button>
         </form>
       </div>
@@ -158,7 +91,7 @@ if (isset($_POST['logout'])) {
         <p style="font-size: 1.2rem; padding-left: 15px;">Change details</p>
         <div id="ud">
           <p><span style="margin-right: 5px;">Email: </span> <?php echo $_SESSION['email']; ?></p><br>
-          <form action="settings.php" method="POST">
+          <form action="lg.php" method="POST">
             <span>Name</span><br><br>
             <input style="border: none; border-radius: 5px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; width: 300px;" type="text" name="uname" value="<?php echo $_SESSION['username']; ?>">
             <br>
@@ -172,7 +105,7 @@ if (isset($_POST['logout'])) {
           <br>
           <br>
           <p style="font-size: 1.2rem;">Change Password</p>
-          <form action="settings.php" method="POST">
+          <form action="lg.php" method="POST">
             <input style="border: none; border-radius: 5px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; width: 300px;" type="password" name="cur_pass" placeholder="Current password"><br><br><br>
             <input type="password" style="border: none; border-radius: 5px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; width: 300px;" name="new_pass" placeholder="New password"><br><br><br>
             <input type="password" style="border: none; border-radius: 5px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; width: 300px;" name="confirm_pass" placeholder="Confirm password"><br><br><br><br>
@@ -180,7 +113,7 @@ if (isset($_POST['logout'])) {
             <button type="submit" name="cpass" class="btn button1">Change Password</button>
           </form>
           <hr>
-          <form action="settings.php" method="POST">
+          <form action="lg.php" method="POST">
             <button type="submit" name="daccount" class="btn button1">Delete Account</button>
             <button type="submit" name="logout" class="btn button1">Log Out</button>
           </form>

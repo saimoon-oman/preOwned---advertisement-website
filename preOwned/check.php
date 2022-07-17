@@ -66,7 +66,7 @@ if (isset($_POST['register'])) {
       <script>
         alert("Registration successful!");
       </script>
-    <?php
+      <?php
       $fquery = "Select * from registration where username='$username' and email='$email' and password='$password'";
       $res = mysqli_query($con, $fquery);
       $row = mysqli_fetch_assoc($res);
@@ -74,9 +74,26 @@ if (isset($_POST['register'])) {
       $_SESSION["userid"] = $row['userid'];
       $_SESSION["username"] = $username;
       $_SESSION["email"] = $email;
+
+
+      $to_email = $_SESSION["email"];
+      $subject = "Payment to preOwned successful";
+      $body = "Hello " . $_SESSION['username'] . ", 
+       
+    
+    Welcome to preOwned 😊";
+
+
+      $headers = "From: preownedshop123@gmail.com";
+
+      if (mail($to_email, $subject, $body, $headers)) {
+      
+      } else {
+        echo "Email sending failed...";
+      }
       include 'index.php';
     } else {
-    ?>
+      ?>
       <script>
         alert("Registration not successful!");
       </script>
@@ -86,7 +103,6 @@ if (isset($_POST['register'])) {
   }
 }
 ?>
-
 <?php
 if (isset($_POST['postbutton'])) {
   if (isset($_SESSION["username"])) {
@@ -101,6 +117,7 @@ if (isset($_POST['postbutton'])) {
   }
 }
 ?>
+
 <?php
 if (isset($_POST['ppbutton'])) {
   $d1 = strtotime($_POST['endDate']);
@@ -216,7 +233,7 @@ if (isset($_POST['ppbutton'])) {
     while ($rowssql = mysqli_fetch_assoc($ssqlres)) {
       $adId = $rowssql['ad_id'];
     }
-    setcookie("adId", $adId, time()+(86400*1));
+    setcookie("adId", $adId, time() + (86400 * 1));
   }
 
   if ($adresult) {
@@ -225,9 +242,9 @@ if (isset($_POST['ppbutton'])) {
       alert("Ad posted successfully!");
     </script>
 <?php
-    setcookie("userid", $_SESSION["userid"], time()+(86400*1));
-    setcookie("username", $_SESSION["username"], time()+(86400*1));
-    setcookie("email", $_SESSION["email"], time()+(86400*1));
+    setcookie("userid", $_SESSION["userid"], time() + (86400 * 1));
+    setcookie("username", $_SESSION["username"], time() + (86400 * 1));
+    setcookie("email", $_SESSION["email"], time() + (86400 * 1));
   }
 
   /* PHP */
