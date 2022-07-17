@@ -7,11 +7,7 @@
   $con = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbnName);
   
   if ($con) {
-    ?>
-    <script>
-      alert("Connected");
-    </script>
-    <?php
+    
   }
   else {
     ?>

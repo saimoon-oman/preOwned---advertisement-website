@@ -1,6 +1,5 @@
 <?php
 if (isset($_POST['logout'])) {
-  session_destroy();
   unset($_SESSION["userid"]);
   unset($_SESSION["username"]);
   unset($_SESSION["email"]);
@@ -71,7 +70,9 @@ if (isset($_POST['daccount'])) {
   include 'dbconnect.php';
   $sqlq = "delete from registration where userid=".$_SESSION["userid"];
   $res = mysqli_query($con, $sqlq);
-  session_destroy();
+  unset($_SESSION["userid"]);
+  unset($_SESSION["username"]);
+  unset($_SESSION["email"]);
   ?>
   <script>
     alert("Account Deleted successfully!");

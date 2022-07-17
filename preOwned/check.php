@@ -237,11 +237,6 @@ if (isset($_POST['ppbutton'])) {
   }
 
   if ($adresult) {
-?>
-    <script>
-      alert("Ad posted successfully!");
-    </script>
-<?php
     setcookie("userid", $_SESSION["userid"], time() + (86400 * 1));
     setcookie("username", $_SESSION["username"], time() + (86400 * 1));
     setcookie("email", $_SESSION["email"], time() + (86400 * 1));

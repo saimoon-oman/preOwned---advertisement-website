@@ -115,10 +115,19 @@ if (isset($_COOKIE["userid"])) {
   <title>All Ads</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/allads.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <style>
+    #eemail:hover,
+    .llink:hover {
+      text-decoration: underline;
+      transition: 0.3s ease;
+      color: royalblue;
+    }
+  </style>
 </head>
 
 <body>
-<div class="navigation">
+  <div class="navigation">
     <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
       <div class="container-fluid">
         <form action="indeximg.php" method="POST">
@@ -138,11 +147,11 @@ if (isset($_COOKIE["userid"])) {
                                         if (isset($_SESSION["username"])) echo "profile.php";
                                         else echo "login.php";
                                         ?>"><img src="images/login.png" alt="Login image" width="30" /><?php
-                                                                                if (isset($_SESSION["username"])) {
-                                                                                  echo $_SESSION["username"];
-                                                                                } else {
-                                                                                  echo "Login";
-                                                                                } ?></a>
+                                                                                                        if (isset($_SESSION["username"])) {
+                                                                                                          echo $_SESSION["username"];
+                                                                                                        } else {
+                                                                                                          echo "Login";
+                                                                                                        } ?></a>
             </li>
             <!-- 
               <li class="nav-item">
@@ -1361,11 +1370,61 @@ if (isset($_COOKIE["userid"])) {
     </section>
   </div>
 
-  <div class="footer">
-    <hr />
-    <small>Copywrite 2022 &copy; Theme Created By
-      <span style="color: #ff9f29">Saimoon</span> All Rights Reserved.</small>
-  </div>
+
+  <footer class="footer-distributed" style="background: #b1c1d5; border-radius: 10px; ">
+
+    <div class="row">
+      <div class="footer-left col" style="padding-top: 40px;">
+
+        <img src="images/logo2.png" alt="" width=150 height=100 style="border-radius: 50%;">
+
+        <p class="footer-links">
+          <a href="#" style="color: white; font-size: 20px;" class=".llink">Home</a> ·
+          <a href="#" style="color: white; font-size: 20px;" class=".llink">About</a> ·
+          <a href="#" style="color: white; font-size: 20px;" class=".llink">Pricing</a> ·
+          <a href="#" style="color: white; font-size: 20px;" class=".llink">About</a> ·
+          <a href="#" style="color: white; font-size: 20px;" class=".llink">Faq</a> ·
+          <a href="#" style="color: white; font-size: 20px;" class=".llink">Contact</a>
+        </p>
+
+        <p class="footer-company-name">preOwned &copy; 2018</p>
+      </div>
+
+      <div class="footer-center col" style="padding-top: 10px;">
+
+        <div>
+          <img src="images/locc.png" alt="" style="width: 40px; height: 40px; border-radius: 50%;">
+          <p style="font-size: 20px;"><span>67/9 Kamal Road</span>Uttara, Dhaka</p>
+        </div>
+
+        <div>
+          <img src="images/call.png" alt="" style="width: 40px; height: 40px; border-radius: 50%">
+          <p style="font-size: 20px;">+8801713487924</p>
+        </div>
+
+        <div>
+          <img src="images/msg.png" alt="" style="width: 40px; height: 40px; border-radius: 50%">
+          <p style="font-size: 20px;"><a id="eemail" href="mailto:preownedshop123@gmail.com">preownedshop123@gmail.com</a></p>
+        </div>
+
+      </div>
+
+      <div class="footer-right col" style="padding: 10px 10px 0 0;">
+
+        <p class="footer-company-about">
+          <span style="font-size: 30px;">About this company</span><br><br><span style="text-align: justify; text-justify: inter-word;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, dolorem possimus ea ab corporis id placeat cumque nemo molestiae facere temporibus ex qui? Architecto, aliquam quidem! Quod necessitatibus distinctio voluptate? Facilis laborum commodi nulla quas dignissimos quidem optio ex nam officia inventore error ea labore iure voluptates officiis, ipsam similique.</span>
+        </p>
+
+        <div class="footer-icons" style="width: 60%; margin: 10px auto;">
+
+          <a href="#"><img src="images/fb1.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block;"></i></a>
+          <a href="#"><img src="images/twitter.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block;"></i></a>
+
+        </div>
+
+      </div>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>

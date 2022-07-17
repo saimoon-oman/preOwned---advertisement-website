@@ -1,5 +1,5 @@
 body {
-  background-color: #f4fff7;
+  background-color: #e5e7eb;
 }
 .navigation {
   background-color: #eaf6f7;
@@ -24,7 +24,7 @@ body {
   width: 67%;
   background-color: white;
   /* height: 300px; */
-  margin-top: 20px;
+  margin-top: 20px 0px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 15px;
@@ -38,7 +38,8 @@ body {
   border: 1px solid black;
   border-radius: 5px;
 }
-#price, #title {
+#price,
+#title {
   width: 417px;
 }
 .formPadding {
@@ -76,4 +77,10 @@ li {
   border: 1px solid black;
   border-radius: 10px;
   font-weight: bold;
+}
+#eemail:hover,
+.llink:hover {
+  text-decoration: underline;
+  transition: 0.3s ease;
+  color: royalblue;
 }
