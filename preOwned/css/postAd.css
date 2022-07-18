@@ -78,9 +78,7 @@ li {
   border-radius: 10px;
   font-weight: bold;
 }
-#eemail:hover,
-.llink:hover {
-  text-decoration: underline;
-  transition: 0.3s ease;
-  color: royalblue;
+.footer {
+  background: #152F4F;
+  color: white;
 }

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,14 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-  <style>
-    #eemail:hover,
-    .llink:hover {
-      text-decoration: underline;
-      transition: 0.3s ease;
-      color: royalblue;
-    }
-  </style>
+
 </head>
 
 <body>
@@ -24,7 +19,7 @@
     <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
       <div class="container-fluid">
         <form action="indeximg.php" method="POST">
-          <button type="submit" class="navbar-brand" style="border: none;" name="home"><img src="images/logo2.png" alt="logo" width="150" /></button>
+          <button type="submit" class="navbar-brand" style="border: none;" name="home"><img src="images/logo2.png" alt="logo" width="150" style="border-radius: 50%;" /></button>
         </form>
         <a class="nav-link nav-font navbar-nav" href="<?php
                                                       if (isset($_SESSION["userid"])) echo "allads.php";
@@ -70,7 +65,7 @@
     </nav>
   </div>
 
-  <div class="container-fluid" id="landingSection">
+  <div class="container-fluid" id="landingSection" style='border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;'>
     <h3>Sell your used goods at resonable price...</h3>
     <h1>
       Search from the largest classifieds & Post<br />
@@ -116,7 +111,7 @@
       <h3><span style="color: #ff9f29;">Browse</span> Categories</h3>
       <hr id="browseCategorieshr1" />
       <hr id="browseCategorieshr2" />
-      <div class="container" id="browseCategoriesTable">
+      <div class="container" id="browseCategoriesTable" style='border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;'>
         <div class="row">
           <button type="submit" name="c1" class="col bb" style="background-color: whitesmoke;">
             <a href="#">
@@ -179,7 +174,7 @@
       <hr id="browseCategorieshr1" />
       <hr id="browseCategorieshr2" />
       <p id="adsByLocationsMessages">Find items in your city and nearby by searching items by location</p>
-      <div class="container" id="adsByLocationsTable">
+      <div class="container" id="adsByLocationsTable" style='border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;'>
         <div class="row">
           <button type="submit" name="l1" class="col bb" style="background-color: whitesmoke;">
             <a href="#">
@@ -241,25 +236,25 @@
     <hr id="browseCategorieshr1" />
     <hr id="browseCategorieshr2" />
     <p id="howItWorksMessages">Simple three steps to get your deal done!</p>
-    <div class="container" id="howItWorksTable">
+    <div class="container" id="howItWorksTable" style='border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;'>
       <div class="row">
         <div class="col" style="background-color: whitesmoke;">
           <a href="#">
-            <img src="images/createaccount.png" alt="Mobile images" style="width: 50px;" />
+            <img src="images/ca.jpg" alt="Mobile images" style="width: 300px;" />
             <h6>Create Account</h6>
             <p>Simple way to create your account. It's free to create new account. Create account to post ads.</p>
           </a>
         </div>
         <div class="col">
           <a href="#">
-            <img src="images/electronics.jpg" alt="Electronics images" style="width: 125px;" />
+            <img src="images/hanshake1.jpg" alt="Electronics images" style="width: 300px;" />
             <h6>Get Deal</h6>
             <p>Get your best deal searching by categories or locations. It's easy to search items also by keyword. And grab the best deal for you. You can post your ads too and get them sold.</p>
           </a>
         </div>
         <div class="col" style="background-color: whitesmoke;">
           <a href="#">
-            <img src="images/vehicles.jpg" alt="Vehicles images" style="width: 65px;" />
+            <img src="images/done.jpg" alt="Vehicles images" style="width: 300px;" />
             <h6>You're Done!</h6>
             <p>After completing these two steps your work is done. Contact with seller or customer and grab your deal.</p>
           </a>
@@ -268,62 +263,41 @@
       </div>
     </div>
 
-    <footer class="footer-distributed" style="background: #b1c1d5; border-radius: 10px; ">
-
-      <div class="row">
-        <div class="footer-left col" style="padding-top: 40px;">
-
-          <img src="images/logo2.png" alt="" width=150 height=100 style="border-radius: 50%;">
-
-          <p class="footer-links">
-            <a href="#" style="color: white; font-size: 20px;" class=".llink">Home</a> ·
-            <a href="#" style="color: white; font-size: 20px;" class=".llink">About</a> ·
-            <a href="#" style="color: white; font-size: 20px;" class=".llink">Pricing</a> ·
-            <a href="#" style="color: white; font-size: 20px;" class=".llink">About</a> ·
-            <a href="#" style="color: white; font-size: 20px;" class=".llink">Faq</a> ·
-            <a href="#" style="color: white; font-size: 20px;" class=".llink">Contact</a>
-          </p>
-
-          <p class="footer-company-name">preOwned &copy; 2018</p>
+    <div class="mt-5 pt-5 pb-5 footer" style='border-radius: 10px 10px 0 0; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;'>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5 col-xs-12 about-company" style="text-align: left; padding-right: 50px;">
+            <h2>About preOwned</h2>
+            <p class="pr-5 text-white-50" style="text-align: left;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic sint tempore qui ratione dolor omnis iusto, fugit optio voluptates laudantium! Non tempore nam, molestias provident quod nemo ipsum error at ducimus autem voluptas iusto tempora harum nulla dolorem mollitia quam sed inventore, officia exercitationem placeat debitis illum ut! Voluptatum, saepe.</p>
+            <p><a href="#"><img src="images/fb1.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;"></a><a href="#"><img src="images/twitter.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;"></a><a href="#"><img src="images/insta.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;"></a></p>
+          </div>
+          <div class="col-lg-3 col-xs-12 links" style="text-align: left;">
+            <h4 class="mt-lg-0 mt-sm-3">Links</h4>
+            <ul class="m-0 p-0" style="text-align: left; list-style-type: none;">
+              <li>- <a href="#" style="color: white;">Home</a></li>
+              <li>- <a href="#" style="color: white;">About</a></li>
+              <li>- <a href="#" style="color: white;">Contact</a></li>
+              <li>- <a href="#" style="color: white;">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-xs-12 location" style="text-align: left;">
+            <h4 class="mt-lg-0 mt-sm-4" style="text-align: left;">Location</h4>
+            <p style="text-align: left;"><img src="images/locc.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;"><span>67/9 Kamal Road, Rashed residential area,</span>Uttara, Dhaka</p>
+            <p class="mb-0" style="text-align: left;"><img src="images/call.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px; ">
+              +8801718478921</p>
+            <br>
+            <p style="text-align: left;"><img src="images/msg.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;">
+              <a style="color: white;" id="eemail" href="mailto:preownedshop123@gmail.com">preownedshop123@gmail.com</a>
+            </p>
+          </div>
         </div>
-
-        <div class="footer-center col" style="padding-top: 10px;">
-
-          <div>
-            <img src="images/locc.png" alt="" style="width: 40px; height: 40px; border-radius: 50%;">
-            <p style="font-size: 20px;"><span>67/9 Kamal Road</span>Uttara, Dhaka</p>
+        <div class="row mt-5">
+          <div class="col copyright">
+            <p class=""><small class="text-white-50">© 2019. All Rights Reserved.</small></p>
           </div>
-
-          <div>
-            <img src="images/call.png" alt="" style="width: 40px; height: 40px; border-radius: 50%">
-            <p style="font-size: 20px;">+8801713487924</p>
-          </div>
-
-          <div>
-            <img src="images/msg.png" alt="" style="width: 40px; height: 40px; border-radius: 50%">
-            <p style="font-size: 20px;"><a id="eemail" href="mailto:preownedshop123@gmail.com">preownedshop123@gmail.com</a></p>
-          </div>
-
-        </div>
-
-        <div class="footer-right col" style="padding: 10px 10px 0 0;">
-
-          <p class="footer-company-about">
-            <span style="font-size: 30px;">About this company</span><br><br><span style="text-align: justify; text-justify: inter-word;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, dolorem possimus ea ab corporis id placeat cumque nemo molestiae facere temporibus ex qui? Architecto, aliquam quidem! Quod necessitatibus distinctio voluptate? Facilis laborum commodi nulla quas dignissimos quidem optio ex nam officia inventore error ea labore iure voluptates officiis, ipsam similique.</span>
-          </p>
-
-          <div class="footer-icons" style="width: 60%; margin: 10px auto;">
-
-            <a href="#"><img src="images/fb1.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block;"></i></a>
-            <a href="#"><img src="images/twitter.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block;"></i></a>
-
-          </div>
-
         </div>
       </div>
-    </footer>
-
-
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 

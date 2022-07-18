@@ -127,11 +127,9 @@
       position: relative;
     }
 
-    #eemail:hover,
-    .llink:hover {
-      text-decoration: underline;
-      transition: 0.3s ease;
-      color: royalblue;
+    .footer {
+      background: #152F4F;
+      color: white;
     }
   </style>
 </head>
@@ -141,7 +139,7 @@
     <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
       <div class="container-fluid">
         <form action="indeximg.php" method="POST">
-          <button type="submit" class="navbar-brand" style="border: none;" name="home"><img src="images/logo2.png" alt="logo" width="150" /></button>
+          <button type="submit" class="navbar-brand" style="border: none;" name="home"><img src="images/logo2.png" alt="logo" width="150" style="border-radius: 50%;" /></button>
         </form>
         <a class="nav-link nav-font navbar-nav" href="<?php
                                                       if (isset($_SESSION["userid"])) echo "allads.php";
@@ -196,7 +194,7 @@
         <div class="formPadding" style="padding-top: 50px">
           <div id="cat">
             <label for="category" style="padding-right: 20px">Caterory</label>
-            <select name="category" id="category" required>
+            <select name="category" id="category" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;">
               <option value="" disabled selected hidden>Search</option>
               <option value="mobiles">Mobiles</option>
               <option value="electronics">Electronics</option>
@@ -211,7 +209,7 @@
 
           <div id="loc">
             <label for="location" style="padding-right: 20px">Location</label>
-            <select name="location" id="location" required>
+            <select name="location" id="location" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;">
               <option value="" disabled selected hidden>Search</option>
               <option value="dhaka">Dhaka</option>
               <option value="chattogram">Chattogram</option>
@@ -226,7 +224,7 @@
 
           <div id="tit" style="padding-top: 20px;">
             <label for="title"><small>Title</small></label><br>
-            <input type="text" id="title" name="title" required>
+            <input type="text" id="title" name="title" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;">
           </div>
 
           <div style="padding-top: 20px"><small>Condition</small></div>
@@ -248,17 +246,17 @@
           <div style="padding-top: 20px">
             <label for="features"><small>Features (optional)</small></label>
           </div>
-          <textarea name="features" id="features" cols="55" rows="5"></textarea><br />
+          <textarea name="features" id="features" cols="55" rows="5" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;"></textarea><br />
 
           <div style="padding-top: 20px">
             <label for="description"><small>Description</small></label>
           </div>
-          <textarea name="description" id="description" cols="55" rows="5" required></textarea><br />
+          <textarea name="description" id="description" cols="55" rows="5" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;"></textarea><br />
 
           <div style="padding-top: 20px">
             <label for="price"><small>Price (Tk)</small></label>
           </div>
-          <input type="number" name="price" id="price" required placeholder="Pick a good price - what would you pay?" /><br />
+          <input type="number" name="price" id="price" required placeholder="Pick a good price - what would you pay?"  style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;"/><br />
 
           <div style="padding-top: 20px"><small>Type</small></div>
           <div id="ngo">
@@ -274,7 +272,7 @@
 
           <div style="padding-top: 20px;">
             <label for="endDate"><small>The ad will show till:</small></label><br>
-            <input type="date" id="endDate" name="endDate" required>
+            <input type="date" id="endDate" name="endDate" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;">
           </div>
         </div>
         <hr />
@@ -312,15 +310,15 @@
           </p>
 
           <label for="phoneNo"><small>Add phone number</small></label><br />
-          <input type="tel" name="phoneNo" id="phoneNo" required /><br />
+          <input type="tel" name="phoneNo" id="phoneNo" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;"/><br />
           <div style="padding-top: 20px">
-            <input type="checkbox" id="termsAndConditions" name="termsAndConditions" value="true" />
+            <input type="checkbox" id="termsAndConditions"  onclick="ffun()" name="termsAndConditions" value="true" />
             <label for="termsAndConditions">
               I have read and accept the
               <a href="#" style="text-decoration: none">Terms and Conditions</a></label><br />
           </div>
           <div style="padding-top: 20px; padding-left: 375px">
-            <input type="submit" id="sub" name="ppbutton" value="Post Ad" />
+            <input type="submit" id="sub" name="ppbutton" value="Post Ad" style="background: #ff9f29;" />
           </div>
         </div>
       </form>
@@ -328,61 +326,55 @@
   </div>
 
 
+  <script>
+    function ffun() {
+      var x = document.getElementById("sub");
+      if (x.style.background === "#ff9f29") {
+        x.style.background = "#ff5f00";
+        x.style.fontWeight = "bold";
+      }
+      else {
+        x.style.background = "#ff9f29";
+      }
+    }
+  </script>
 
-  <footer class="footer-distributed" style="background: #b1c1d5; border-radius: 10px; ">
-
-    <div class="row">
-      <div class="footer-left col" style="padding-top: 40px;">
-
-        <img src="images/logo2.png" alt="" width=150 height=100 style="border-radius: 50%;">
-
-        <p class="footer-links">
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">Home</a> ·
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">About</a> ·
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">Pricing</a> ·
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">About</a> ·
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">Faq</a> ·
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">Contact</a>
-        </p>
-
-        <p class="footer-company-name">preOwned &copy; 2018</p>
+  <div class="mt-5 pt-5 pb-5 footer" style='border-radius: 10px 10px 0 0; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;'>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-xs-12 about-company" style="text-align: left; padding-right: 50px;">
+          <h2>About preOwned</h2>
+          <p class="pr-5 text-white-50">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic sint tempore qui ratione dolor omnis iusto, fugit optio voluptates laudantium! Non tempore nam, molestias provident quod nemo ipsum error at ducimus autem voluptas iusto tempora harum nulla dolorem mollitia quam sed inventore, officia exercitationem placeat debitis illum ut! Voluptatum, saepe.</p>
+          <p><a href="#"><i class="fa fa-facebook-square mr-1"><img src="images/fb1.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;"></i></a><a href="#"><i class="fa fa-linkedin-square"><img src="images/twitter.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;"></i></a><a href="#"><i class="fa fa-linkedin-square"><img src="images/insta.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;"></i></a></p>
+        </div>
+        <div class="col-lg-3 col-xs-12 links" style="text-align: left;">
+          <h4 class="mt-lg-0 mt-sm-3">Links</h4>
+          <ul class="m-0 p-0" style="text-align: left;">
+            <li>- <a href="#">Home</a></li>
+            <li>- <a href="#">About</a></li>
+            <li>- <a href="#">Contact</a></li>
+            <li>- <a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-xs-12 location" style="text-align: left;">
+          <h4 class="mt-lg-0 mt-sm-4">Location</h4>
+          <br>
+          <p><img src="images/locc.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 20px;"><span>67/9 Kamal Road</span>Uttara, Dhaka</p>
+          <p class="mb-0"><i class="fa fa-phone mr-3"><img src="images/call.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 20px;">
+            </i>+8801718478921</p>
+          <br>
+          <p><i class="fa fa-envelope-o mr-3"><img src="images/msg.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 20px;">
+            </i><a id="eemail" href="mailto:preownedshop123@gmail.com">preownedshop123@gmail.com</a></p>
+        </div>
       </div>
-
-      <div class="footer-center col" style="padding-top: 10px;">
-
-        <div>
-          <img src="images/locc.png" alt="" style="width: 40px; height: 40px; border-radius: 50%;">
-          <p style="font-size: 20px;"><span>67/9 Kamal Road</span>Uttara, Dhaka</p>
+      <div class="row mt-5">
+        <div class="col copyright">
+          <p class=""><small class="text-white-50">© 2019. All Rights Reserved.</small></p>
         </div>
-
-        <div>
-          <img src="images/call.png" alt="" style="width: 40px; height: 40px; border-radius: 50%">
-          <p style="font-size: 20px;">+8801713487924</p>
-        </div>
-
-        <div>
-          <img src="images/msg.png" alt="" style="width: 40px; height: 40px; border-radius: 50%">
-          <p style="font-size: 20px;"><a id="eemail" href="mailto:preownedshop123@gmail.com">preownedshop123@gmail.com</a></p>
-        </div>
-
-      </div>
-
-      <div class="footer-right col" style="padding: 10px 10px 0 0;">
-
-        <p class="footer-company-about">
-          <span style="font-size: 30px;">About this company</span><br><br><span style="text-align: justify; text-justify: inter-word;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, dolorem possimus ea ab corporis id placeat cumque nemo molestiae facere temporibus ex qui? Architecto, aliquam quidem! Quod necessitatibus distinctio voluptate? Facilis laborum commodi nulla quas dignissimos quidem optio ex nam officia inventore error ea labore iure voluptates officiis, ipsam similique.</span>
-        </p>
-
-        <div class="footer-icons" style="width: 60%; margin: 10px auto;">
-
-          <a href="#"><img src="images/fb1.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block;"></i></a>
-          <a href="#"><img src="images/twitter.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block;"></i></a>
-
-        </div>
-
       </div>
     </div>
-  </footer>
+  </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>

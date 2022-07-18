@@ -40,6 +40,6 @@ a {
   padding: 10px 20px;
 }
 .footer {
-  text-align: center;
-  padding: 50px auto;
+  background: #152F4F;
+  color: white;
 }

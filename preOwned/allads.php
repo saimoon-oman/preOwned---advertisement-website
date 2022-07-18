@@ -131,7 +131,7 @@ if (isset($_COOKIE["userid"])) {
     <nav class="navbar navbar-expand-sm navbar-light" style="padding-top: 0px; padding-bottom: 0px;">
       <div class="container-fluid">
         <form action="indeximg.php" method="POST">
-          <button type="submit" class="navbar-brand" style="border: none;" name="home"><img src="images/logo2.png" alt="logo" width="150" /></button>
+          <button type="submit" class="navbar-brand" style="border: none;" name="home"><img src="images/logo2.png" alt="logo" width="150" style="border-radius: 50%;" /></button>
         </form>
         <a class="nav-link nav-font navbar-nav" href="<?php
                                                       if (isset($_SESSION["userid"])) echo "allads.php";
@@ -1370,61 +1370,41 @@ if (isset($_COOKIE["userid"])) {
     </section>
   </div>
 
-
-  <footer class="footer-distributed" style="background: #b1c1d5; border-radius: 10px; ">
-
-    <div class="row">
-      <div class="footer-left col" style="padding-top: 40px;">
-
-        <img src="images/logo2.png" alt="" width=150 height=100 style="border-radius: 50%;">
-
-        <p class="footer-links">
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">Home</a> ·
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">About</a> ·
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">Pricing</a> ·
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">About</a> ·
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">Faq</a> ·
-          <a href="#" style="color: white; font-size: 20px;" class=".llink">Contact</a>
-        </p>
-
-        <p class="footer-company-name">preOwned &copy; 2018</p>
+  <div class="mt-5 pt-5 pb-5 footer" style='border-radius: 10px 10px 0 0; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;'>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-xs-12 about-company" style="text-align: left; padding-right: 50px;">
+          <h2>About preOwned</h2>
+          <p class="pr-5 text-white-50">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic sint tempore qui ratione dolor omnis iusto, fugit optio voluptates laudantium! Non tempore nam, molestias provident quod nemo ipsum error at ducimus autem voluptas iusto tempora harum nulla dolorem mollitia quam sed inventore, officia exercitationem placeat debitis illum ut! Voluptatum, saepe.</p>
+          <p><a href="#"><i class="fa fa-facebook-square mr-1"><img src="images/fb1.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;"></i></a><a href="#"><i class="fa fa-linkedin-square"><img src="images/twitter.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;"></i></a><a href="#"><i class="fa fa-linkedin-square"><img src="images/insta.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block; margin-right: 20px;"></i></a></p>
+        </div>
+        <div class="col-lg-3 col-xs-12 links" style="text-align: left;">
+          <h4 class="mt-lg-0 mt-sm-3">Links</h4>
+          <ul class="m-0 p-0" style="text-align: left;">
+            <li>- <a href="#">Home</a></li>
+            <li>- <a href="#">About</a></li>
+            <li>- <a href="#">Contact</a></li>
+            <li>- <a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-xs-12 location" style="text-align: left;">
+          <h4 class="mt-lg-0 mt-sm-4">Location</h4>
+          <br>
+          <p><img src="images/locc.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 20px;"><span>67/9 Kamal Road</span>Uttara, Dhaka</p>
+          <p class="mb-0"><i class="fa fa-phone mr-3"><img src="images/call.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 20px;">
+            </i>+8801718478921</p>
+          <br>
+          <p><i class="fa fa-envelope-o mr-3"><img src="images/msg.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 20px;">
+            </i><a id="eemail" href="mailto:preownedshop123@gmail.com">preownedshop123@gmail.com</a></p>
+        </div>
       </div>
-
-      <div class="footer-center col" style="padding-top: 10px;">
-
-        <div>
-          <img src="images/locc.png" alt="" style="width: 40px; height: 40px; border-radius: 50%;">
-          <p style="font-size: 20px;"><span>67/9 Kamal Road</span>Uttara, Dhaka</p>
+      <div class="row mt-5">
+        <div class="col copyright">
+          <p class=""><small class="text-white-50">© 2019. All Rights Reserved.</small></p>
         </div>
-
-        <div>
-          <img src="images/call.png" alt="" style="width: 40px; height: 40px; border-radius: 50%">
-          <p style="font-size: 20px;">+8801713487924</p>
-        </div>
-
-        <div>
-          <img src="images/msg.png" alt="" style="width: 40px; height: 40px; border-radius: 50%">
-          <p style="font-size: 20px;"><a id="eemail" href="mailto:preownedshop123@gmail.com">preownedshop123@gmail.com</a></p>
-        </div>
-
-      </div>
-
-      <div class="footer-right col" style="padding: 10px 10px 0 0;">
-
-        <p class="footer-company-about">
-          <span style="font-size: 30px;">About this company</span><br><br><span style="text-align: justify; text-justify: inter-word;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, dolorem possimus ea ab corporis id placeat cumque nemo molestiae facere temporibus ex qui? Architecto, aliquam quidem! Quod necessitatibus distinctio voluptate? Facilis laborum commodi nulla quas dignissimos quidem optio ex nam officia inventore error ea labore iure voluptates officiis, ipsam similique.</span>
-        </p>
-
-        <div class="footer-icons" style="width: 60%; margin: 10px auto;">
-
-          <a href="#"><img src="images/fb1.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block;"></i></a>
-          <a href="#"><img src="images/twitter.png" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: inline-block;"></i></a>
-
-        </div>
-
       </div>
     </div>
-  </footer>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>

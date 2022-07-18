@@ -109,3 +109,7 @@ thead td {
 tbody tr td {
   padding: 10px 15px;
 }
+.footer {
+  background: #152F4F;
+  color: white;
+}
