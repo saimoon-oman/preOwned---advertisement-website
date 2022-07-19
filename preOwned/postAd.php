@@ -1,3 +1,23 @@
+<?php
+include 'dbconnect.php';
+$query = "Select * from ads";
+$res = mysqli_query($con, $query);
+$rescheck = mysqli_num_rows($res);
+if ($rescheck > 0) {
+  while ($row = mysqli_fetch_assoc($res)) {
+    $expDate = $row['endDate'];
+    $today = date("Y-m-d");
+    
+    $today_time = strtotime($today);
+    $expire_time = strtotime($expDate);
+
+    if ($expire_time < $today_time) { 
+      $q = "Delete from ads where endDate = '".$expDate."'";
+      $res1 = mysqli_query($con, $q);
+    }
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -272,7 +292,7 @@
 
           <div style="padding-top: 20px;">
             <label for="endDate"><small>The ad will show till:</small></label><br>
-            <input type="date" id="endDate" name="endDate" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;">
+            <input type="date" id="endDate" name="endDate" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date('Y-m-d', strtotime(date("Y-m-d"). ' + 1 years')); ?>" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;">
           </div>
         </div>
         <hr />

@@ -1,4 +1,24 @@
 <?php
+include 'dbconnect.php';
+$query = "Select * from ads";
+$res = mysqli_query($con, $query);
+$rescheck = mysqli_num_rows($res);
+if ($rescheck > 0) {
+  while ($row = mysqli_fetch_assoc($res)) {
+    $expDate = $row['endDate'];
+    $today = date("Y-m-d");
+
+    $today_time = strtotime($today);
+    $expire_time = strtotime($expDate);
+
+    if ($expire_time < $today_time) {
+      $q = "Delete from ads where endDate = '" . $expDate . "'";
+      $res1 = mysqli_query($con, $q);
+    }
+  }
+}
+?>
+<?php
 session_start();
 if (isset($_COOKIE["userid"])) {
 
@@ -112,6 +132,7 @@ if (isset($_COOKIE["userid"])) {
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="refresh" content="10">
   <title>All Ads</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/allads.css" />
