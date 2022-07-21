@@ -22,6 +22,19 @@ if ($rescheck > 0) {
 session_start();
 ?>
 <?php
+if (isset($_SESSION["start"])) { if( time() > $_SESSION["start"]) {
+  unset($_SESSION["userid"]);
+  unset($_SESSION["username"]);
+  unset($_SESSION["email"]);
+  unset($_SESSION["start"]);
+  ?>
+  <script>
+    alert("Session is automatically destroyed after 15 minutes");
+  </script>
+  <?php
+} }
+?>
+<?php
 include 'dbconnect.php';
 $qq = "Select * from ads";
 $resqq = mysqli_query($con, $qq);

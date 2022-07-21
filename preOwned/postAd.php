@@ -7,16 +7,29 @@ if ($rescheck > 0) {
   while ($row = mysqli_fetch_assoc($res)) {
     $expDate = $row['endDate'];
     $today = date("Y-m-d");
-    
+
     $today_time = strtotime($today);
     $expire_time = strtotime($expDate);
 
-    if ($expire_time < $today_time) { 
-      $q = "Delete from ads where endDate = '".$expDate."'";
+    if ($expire_time < $today_time) {
+      $q = "Delete from ads where endDate = '" . $expDate . "'";
       $res1 = mysqli_query($con, $q);
     }
   }
 }
+?>
+<?php
+if (isset($_SESSION["start"])) { if( time() > $_SESSION["start"]) {
+  unset($_SESSION["userid"]);
+  unset($_SESSION["username"]);
+  unset($_SESSION["email"]);
+  unset($_SESSION["start"]);
+  ?>
+  <script>
+    alert("Session is automatically destroyed after 15 minutes");
+  </script>
+  <?php
+} }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -151,8 +164,60 @@ if ($rescheck > 0) {
       background: #152F4F;
       color: white;
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .form {
+      margin: 20px 0;
+      padding: 0px 50px;
+    }
+
+    .form .grid {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .form .grid .form-element {
+      width: 130px;
+      height: 130px;
+      cursor: pointer;
+      box-shadow: 0px 0px 20px 5px rgba(100, 100, 100, 0.1);
+    }
+
+    .form .grid .form-element input {
+      display: none;
+    }
+
+    .form .grid .form-element img {
+      width: 130px;
+      height: 130px;
+      cursor: pointer;
+      object-fit: cover;
+    }
+
+    .form .grid .form-element div {
+      position: relative;
+      height: 40px;
+      margin-top: -40px;
+      background: rgba(0, 0, 0, 0.5);
+      text-align: center;
+      line-height: 40px;
+      font-size: 13px;
+      color: #f5f5f5;
+      font-weight: 600;
+    }
+
+    .form .grid .form-element div span {
+      font-size: 40px;
+    }
   </style>
 </head>
+
+
 
 <body>
   <div class="navigation">
@@ -276,7 +341,7 @@ if ($rescheck > 0) {
           <div style="padding-top: 20px">
             <label for="price"><small>Price (Tk)</small></label>
           </div>
-          <input type="number" name="price" id="price" required placeholder="Pick a good price - what would you pay?"  style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;"/><br />
+          <input type="number" name="price" id="price" required placeholder="Pick a good price - what would you pay?" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;" /><br />
 
           <div style="padding-top: 20px"><small>Type</small></div>
           <div id="ngo">
@@ -292,13 +357,64 @@ if ($rescheck > 0) {
 
           <div style="padding-top: 20px;">
             <label for="endDate"><small>The ad will show till:</small></label><br>
-            <input type="date" id="endDate" name="endDate" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date('Y-m-d', strtotime(date("Y-m-d"). ' + 1 years')); ?>" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;">
+            <input type="date" id="endDate" name="endDate" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date('Y-m-d', strtotime(date("Y-m-d") . ' + 1 years')); ?>" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;">
           </div>
         </div>
         <hr />
-        <div class="formPadding">
-          <h6>Add upto 5 photos</h6>
-          <ul>
+        <div class="">
+          <h6 style="text-align: center;">Add upto 5 photos</h6>
+
+          <div class="form">
+            <div class="grid">
+              <div class="form-element">
+                <input type="file" name="image1" id="image1" accept="image/*" required />
+                <label for="image1" id="image1-preview">
+                  <img src="https://bit.ly/3ubuq5o" alt="">
+                  <div>
+                    <span>+</span>
+                  </div>
+                </label>
+              </div>
+              <div class="form-element">
+                <input type="file" name="image2" id="image2" accept="image/*" />
+                <label for="image2" id="image2-preview">
+                  <img src="https://bit.ly/3ubuq5o" alt="">
+                  <div>
+                    <span>+</span>
+                  </div>
+                </label>
+              </div>
+              <div class="form-element">
+                <input type="file" name="image3" id="image3" accept="image/*" />
+                <label for="image3" id="image3-preview">
+                  <img src="https://bit.ly/3ubuq5o" alt="">
+                  <div>
+                    <span>+</span>
+                  </div>
+                </label>
+              </div>
+              <div class="form-element">
+                <input type="file" name="image4" id="image4" accept="image/*" />
+                <label for="image4" id="image4-preview">
+                  <img src="https://bit.ly/3ubuq5o" alt="">
+                  <div>
+                    <span>+</span>
+                  </div>
+                </label>
+              </div>
+              <div class="form-element">
+                <input type="file" name="image5" id="image5" accept="image/*" />
+                <label for="image5" id="image5-preview">
+                  <img src="https://bit.ly/3ubuq5o" alt="">
+                  <div>
+                    <span>+</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- <ul>
             <li>
               <input type="file" name="image1" id="image1" accept="image/*" required />
             </li>
@@ -314,7 +430,7 @@ if ($rescheck > 0) {
             <li>
               <input type="file" name="image5" id="image5" accept="image/*" />
             </li>
-          </ul>
+          </ul> -->
         </div>
         <hr />
         <div class="formPadding">
@@ -330,9 +446,9 @@ if ($rescheck > 0) {
           </p>
 
           <label for="phoneNo"><small>Add phone number</small></label><br />
-          <input type="tel" name="phoneNo" id="phoneNo" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;"/><br />
+          <input type="tel" name="phoneNo" id="phoneNo" required style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-radius: 5px;" /><br />
           <div style="padding-top: 20px">
-            <input type="checkbox" id="termsAndConditions"  onclick="ffun()" name="termsAndConditions" value="true" />
+            <input type="checkbox" id="termsAndConditions" onclick="ffun()" name="termsAndConditions" value="true" />
             <label for="termsAndConditions">
               I have read and accept the
               <a href="#" style="text-decoration: none">Terms and Conditions</a></label><br />
@@ -352,8 +468,7 @@ if ($rescheck > 0) {
       if (x.style.background === "#ff9f29") {
         x.style.background = "#ff5f00";
         x.style.fontWeight = "bold";
-      }
-      else {
+      } else {
         x.style.background = "#ff9f29";
       }
     }
@@ -396,6 +511,25 @@ if ($rescheck > 0) {
   </div>
 
 
+  <script>
+    function previewBeforeUpload(id) {
+      document.querySelector("#" + id).addEventListener("change", function(e) {
+        if (e.target.files.length == 0) {
+          return;
+        }
+        let file = e.target.files[0];
+        let url = URL.createObjectURL(file);
+        document.querySelector("#" + id + "-preview div").innerText = file.name;
+        document.querySelector("#" + id + "-preview img").src = url;
+      });
+    }
+
+    previewBeforeUpload("image1");
+    previewBeforeUpload("image2");
+    previewBeforeUpload("image3");
+    previewBeforeUpload("image4");
+    previewBeforeUpload("image5");
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 

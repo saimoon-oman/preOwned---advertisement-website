@@ -22,6 +22,19 @@ if ($rescheck > 0) {
 session_start();
 ?>
 <?php
+if (isset($_SESSION["start"])) { if( time() > $_SESSION["start"]) {
+  unset($_SESSION["userid"]);
+  unset($_SESSION["username"]);
+  unset($_SESSION["email"]);
+  unset($_SESSION["start"]);
+  ?>
+  <script>
+    alert("Session is automatically destroyed after 15 minutes");
+  </script>
+  <?php
+} }
+?>
+<?php
 if (isset($_POST['login'])) {
   include 'dbconnect.php';
   $username = mysqli_real_escape_string($con, $_POST['username']);
@@ -44,6 +57,7 @@ if (isset($_POST['login'])) {
     $_SESSION["userid"] = $row['userid'];
     $_SESSION["username"] = $username;
     $_SESSION["email"] = $row['email'];
+    $_SESSION["start"] = time()+(15*60);
     include 'index.php';
   } else {
   ?>
@@ -94,6 +108,7 @@ if (isset($_POST['register'])) {
       $_SESSION["userid"] = $row['userid'];
       $_SESSION["username"] = $username;
       $_SESSION["email"] = $email;
+      $_SESSION["start"] = time()+(15*60);
 
 
       $to_email = $_SESSION["email"];

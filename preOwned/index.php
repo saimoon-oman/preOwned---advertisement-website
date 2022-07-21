@@ -7,16 +7,30 @@ if ($rescheck > 0) {
   while ($row = mysqli_fetch_assoc($res)) {
     $expDate = $row['endDate'];
     $today = date("Y-m-d");
-    
+
     $today_time = strtotime($today);
     $expire_time = strtotime($expDate);
 
-    if ($expire_time < $today_time) { 
-      $q = "Delete from ads where endDate = '".$expDate."'";
+    if ($expire_time < $today_time) {
+      $q = "Delete from ads where endDate = '" . $expDate . "'";
       $res1 = mysqli_query($con, $q);
     }
   }
 }
+?>
+
+<?php
+if (isset($_SESSION["start"])) { if( time() > $_SESSION["start"]) {
+  unset($_SESSION["userid"]);
+  unset($_SESSION["username"]);
+  unset($_SESSION["email"]);
+  unset($_SESSION["start"]);
+  ?>
+  <script>
+    alert("Session is automatically destroyed after 15 minutes");
+  </script>
+  <?php
+} }
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +84,9 @@ if ($rescheck > 0) {
                   />Register</a
                 >
               </li> -->
-
+            <li class="nav-item">
+              <a class="nav-link" href="adminlogin.php"><img src="images/login.png" alt="Login image" width="30" />Admin</a>
+            </li>
             <form action="check.php" method="POST">
               <li class="nav-item">
                 <span class="nav-link"><button type="submit" name="postbutton" class="btn button1">

@@ -23,7 +23,7 @@ if (isset($_POST['logout'])) {
   unset($_SESSION["userid"]);
   unset($_SESSION["username"]);
   unset($_SESSION["email"]);
-  
+  unset($_SESSION["start"]);
 ?>
   <script>
     alert("Log out successfully!");

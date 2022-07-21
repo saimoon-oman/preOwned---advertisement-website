@@ -27,3 +27,16 @@ session_start();
     include 'index.php';
   }
 ?>
+<?php
+if (isset($_SESSION["start"])) { if( time() > $_SESSION["start"]) {
+  unset($_SESSION["userid"]);
+  unset($_SESSION["username"]);
+  unset($_SESSION["email"]);
+  unset($_SESSION["start"]);
+  ?>
+  <script>
+    alert("Session is automatically destroyed after 15 minutes");
+  </script>
+  <?php
+} }
+?>

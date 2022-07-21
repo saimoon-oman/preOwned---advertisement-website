@@ -1,4 +1,7 @@
 <?php
+session_start();
+?>
+<?php
 include 'dbconnect.php';
 $query = "Select * from ads";
 $res = mysqli_query($con, $query);
@@ -19,7 +22,20 @@ if ($rescheck > 0) {
 }
 ?>
 <?php
-session_start();
+if (isset($_SESSION["start"])) { if( time() > $_SESSION["start"]) {
+  unset($_SESSION["userid"]);
+  unset($_SESSION["username"]);
+  unset($_SESSION["email"]);
+  unset($_SESSION["start"]);
+  ?>
+  <script>
+    alert("Session is automatically destroyed after 15 minutes");
+  </script>
+  <?php
+} }
+?>
+<?php
+
 if (isset($_COOKIE["userid"])) {
 
   $_SESSION["userid"] = $_COOKIE["userid"];
@@ -125,6 +141,7 @@ if (isset($_COOKIE["userid"])) {
   }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,7 +149,7 @@ if (isset($_COOKIE["userid"])) {
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="refresh" content="10">
+  <meta http-equiv="refresh" content="30">
   <title>All Ads</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/allads.css" />

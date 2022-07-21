@@ -7,27 +7,13 @@ if ($rescheck > 0) {
   while ($row = mysqli_fetch_assoc($res)) {
     $expDate = $row['endDate'];
     $today = date("Y-m-d");
-    
+
     $today_time = strtotime($today);
     $expire_time = strtotime($expDate);
 
-    if ($expire_time < $today_time) { 
-      $q = "Delete from ads where endDate = '".$expDate."'";
+    if ($expire_time < $today_time) {
+      $q = "Delete from ads where endDate = '" . $expDate . "'";
       $res1 = mysqli_query($con, $q);
-    }
-  }
-}
-?>
-<?php
-include 'dbconnect.php';
-$qq = "Select * from ads";
-$resqq = mysqli_query($con, $qq);
-$resqqcheck = mysqli_num_rows($resqq);
-if ($resqqcheck > 0) {
-  while ($rowqq = mysqli_fetch_assoc($resqq)) {
-    if (isset($_POST[($rowqq['ad_id']) . "d"])) {
-      $squeryfromregister = "delete from ads where ad_id=" . $rowqq['ad_id'];
-      $resregis = mysqli_query($con, $squeryfromregister);
     }
   }
 }
@@ -39,7 +25,6 @@ if ($resqqcheck > 0) {
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="refresh" content="10">
   <title>Admin</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://usa.fontawesome.com/releases/v5.15.5/css/all.css" />
@@ -57,14 +42,19 @@ if ($resqqcheck > 0) {
       </div>
 
       <div class="items">
-        <li><i class="fa-solid fa-chart-pie-simple"></i><a href="adminindex.php">Dashboard</a></li>
-        <li><i class="fa-solid fa-chart-pie-simple"></i><a href="#">Customers</a></li>
+        <?php
+        if (isset($_SESSION["adminusername"])) {echo "<li><i class='fa-solid fa-chart-pie-simple'></i><a href='#'>".$_SESSION["adminusername"]."</a></li>";} else echo "<li><i class='fa-solid fa-chart-pie-simple'></i><a href='#'>Saimoon</a></li>";
+        ?>
+        <li><i class="fa-solid fa-chart-pie-simple"></i><a href="admindash.php">Dashboard</a></li>
+        <li><i class="fa-solid fa-chart-pie-simple"></i><a href="admincustomer.php">Clients</a></li>
         <li><i class="fa-solid fa-chart-pie-simple"></i><a href="#">Help</a></li>
         <li><i class="fa-solid fa-chart-pie-simple"></i><a href="#">Settings</a></li>
-        
+        <li><i class="fa-solid fa-chart-pie-simple"></i><a href="adminlg.php">Log Out</a></li>
+
       </div>
     </section>
 
+    
     <section id="interface" class="col">
       <div class="navigation" style="padding: 25px 0;">
 
@@ -114,14 +104,14 @@ if ($resqqcheck > 0) {
         <div class="val-box">
           <img src="images/users.png" alt="">
           <div>
-            <h3><?php 
-              include 'dbconnect.php';
-              $qq = "Select count(userid) from registration";
-              $res = mysqli_query($con, $qq);
-              while ($row = mysqli_fetch_assoc($res)) {
-                echo $row['count(userid)'];
-              }
-            ?></h3>
+            <h3><?php
+                include 'dbconnect.php';
+                $qq = "Select count(userid) from registration";
+                $res = mysqli_query($con, $qq);
+                while ($row = mysqli_fetch_assoc($res)) {
+                  echo $row['count(userid)'];
+                }
+                ?></h3>
             <span>Total users</span>
           </div>
         </div>
@@ -129,14 +119,14 @@ if ($resqqcheck > 0) {
         <div class="val-box">
           <img src="images/aad1.png" alt="">
           <div>
-            <h3><?php 
-              include 'dbconnect.php';
-              $qq = "Select count(ad_id) from ads";
-              $res = mysqli_query($con, $qq);
-              while ($row = mysqli_fetch_assoc($res)) {
-                echo $row['count(ad_id)'];
-              }
-            ?></h3>
+            <h3><?php
+                include 'dbconnect.php';
+                $qq = "Select count(ad_id) from ads";
+                $res = mysqli_query($con, $qq);
+                while ($row = mysqli_fetch_assoc($res)) {
+                  echo $row['count(ad_id)'];
+                }
+                ?></h3>
             <span>Total ads</span>
           </div>
         </div>
@@ -144,14 +134,14 @@ if ($resqqcheck > 0) {
         <div class="val-box">
           <img src="images/tk.png" alt="">
           <div>
-            <h3><?php 
-              include 'dbconnect.php';
-              $qq = "Select sum(amount) from payment";
-              $res = mysqli_query($con, $qq);
-              while ($row = mysqli_fetch_assoc($res)) {
-                echo $row['sum(amount)'];
-              }
-            ?></h3>
+            <h3><?php
+                include 'dbconnect.php';
+                $qq = "Select sum(amount) from payment";
+                $res = mysqli_query($con, $qq);
+                while ($row = mysqli_fetch_assoc($res)) {
+                  echo $row['sum(amount)'];
+                }
+                ?></h3>
             <span>Total income</span>
           </div>
         </div>
@@ -228,7 +218,7 @@ if ($resqqcheck > 0) {
                         </td>
           
                         <td>
-                          <form action='adminindex.php' method='POST'>
+                          <form action='admindeleteads.php' method='POST'>
                             <button name='" . $rowads['ad_id'] . "d' type='submit' class='btn view-pro'>DELETE</button>
                           </form>
                         </td>
@@ -291,7 +281,7 @@ if ($resqqcheck > 0) {
                         </td>
           
                         <td>
-                          <form action='adminindex.php' method='POST'>
+                          <form action='admindeleteads.php' method='POST'>
                             <button name='" . $rowads['ad_id'] . "d' type='submit' class='btn view-pro'>DELETE</button>
                           </form>
                         </td>
@@ -354,7 +344,7 @@ if ($resqqcheck > 0) {
                         </td>
           
                         <td>
-                          <form action='adminindex.php' method='POST'>
+                          <form action='admindeleteads.php' method='POST'>
                             <button name='" . $rowads['ad_id'] . "d' type='submit' class='btn view-pro'>DELETE</button>
                           </form>
                         </td>
@@ -417,7 +407,7 @@ if ($resqqcheck > 0) {
                         </td>
           
                         <td>
-                          <form action='adminindex.php' method='POST'>
+                          <form action='admindeleteads.php' method='POST'>
                             <button name='" . $rowads['ad_id'] . "d' type='submit' class='btn view-pro'>DELETE</button>
                           </form>
                         </td>
@@ -481,7 +471,7 @@ if ($resqqcheck > 0) {
                         </td>
           
                         <td>
-                          <form action='adminindex.php' method='POST'>
+                          <form action='admindeleteads.php' method='POST'>
                             <button name='" . $rowads['ad_id'] . "d' type='submit' class='btn view-pro'>DELETE</button>
                           </form>
                         </td>
@@ -544,7 +534,7 @@ if ($resqqcheck > 0) {
                         </td>
           
                         <td>
-                          <form action='adminindex.php' method='POST'>
+                          <form action='admindeleteads.php' method='POST'>
                             <button name='" . $rowads['ad_id'] . "d' type='submit' class='btn view-pro'>DELETE</button>
                           </form>
                         </td>
@@ -607,7 +597,7 @@ if ($resqqcheck > 0) {
                         </td>
           
                         <td>
-                          <form action='adminindex.php' method='POST'>
+                          <form action='admindeleteads.php' method='POST'>
                             <button name='" . $rowads['ad_id'] . "d' type='submit' class='btn view-pro'>DELETE</button>
                           </form>
                         </td>
@@ -670,7 +660,7 @@ if ($resqqcheck > 0) {
                         </td>
           
                         <td>
-                          <form action='adminindex.php' method='POST'>
+                          <form action='admindeleteads.php' method='POST'>
                             <button name='" . $rowads['ad_id'] . "d' type='submit' class='btn view-pro'>DELETE</button>
                           </form>
                         </td>
@@ -683,7 +673,7 @@ if ($resqqcheck > 0) {
               }
             }
             ?>
-            
+
           </tbody>
         </table>
       </div>

@@ -18,6 +18,19 @@ if ($rescheck > 0) {
   }
 }
 ?>
+<?php
+if (isset($_SESSION["start"])) { if( time() > $_SESSION["start"]) {
+  unset($_SESSION["userid"]);
+  unset($_SESSION["username"]);
+  unset($_SESSION["email"]);
+  unset($_SESSION["start"]);
+  ?>
+  <script>
+    alert("Session is automatically destroyed after 15 minutes");
+  </script>
+  <?php
+} }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +42,13 @@ if ($rescheck > 0) {
   <link rel="stylesheet" href="css/login.css" />
   <link rel="icon" type="image/x-icon" href="images/favicon.ico">
   <title>Register</title>
+  <style>
+    body {
+      background-image: url("bg123.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  </style>
 </head>
 
 <body>
