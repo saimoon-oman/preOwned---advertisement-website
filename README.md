@@ -1,2 +1,2 @@
 # preOwned---advertisement-website
-web project
+web project using html, css, php, javascript
